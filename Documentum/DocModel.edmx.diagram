@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8a76339e989d4c39bde16633a9fd71ac" Name="Diagram1">
+        <EntityTypeShape EntityType="documentumModel.Bookmark" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="documentumModel.Config" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="documentumModel.DokumentTip" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="documentumModel.Grupa" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="documentumModel.Nastavnik" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="documentumModel.Predmet" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="documentumModel.Razred" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="documentumModel.Smer" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="documentumModel.SmerGodina" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="documentumModel.SmerGodinaDokument" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="documentumModel.SmerGodinaPredmet" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="documentumModel.Ucenik" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="documentumModel.UcenikDokument" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="documentumModel.UcenikGrupa" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="documentumModel.UcenikOcena" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="documentumModel.sysdiagram" Width="1.5" PointX="9.375" PointY="9.75" />
+        <AssociationConnector Association="documentumModel.FK_Bookmarks_DokumentTip" />
+        <AssociationConnector Association="documentumModel.FK_SmerGodinaDokument_DokumentTip" />
+        <AssociationConnector Association="documentumModel.FK_UcenikDokument_DokumentTip" />
+        <AssociationConnector Association="documentumModel.FK_SmerGodinaPredmet_Grupa" />
+        <AssociationConnector Association="documentumModel.FK_UcenikGrupa_Grupa" />
+        <AssociationConnector Association="documentumModel.FK_Razred_Nastavnik" />
+        <AssociationConnector Association="documentumModel.FK_SmerGodinaPredmet_Predmet" />
+        <AssociationConnector Association="documentumModel.FK_UcenikOcena_Predmet" />
+        <AssociationConnector Association="documentumModel.FK_Razred_SmerGodina" />
+        <AssociationConnector Association="documentumModel.FK_Ucenik_Razred" />
+        <AssociationConnector Association="documentumModel.FK_SmerGodina_Smer" />
+        <AssociationConnector Association="documentumModel.FK_SmerGodinaDokument_SmerGodina" />
+        <AssociationConnector Association="documentumModel.FK_SmerGodinaPredmet_SmerGodina" />
+        <AssociationConnector Association="documentumModel.FK_UcenikDokument_Ucenik" />
+        <AssociationConnector Association="documentumModel.FK_UcenikGrupa_Ucenik" />
+        <AssociationConnector Association="documentumModel.FK_UcenikOcena_Ucenik" />
+        <AssociationConnector Association="documentumModel.FK_UcenikOcena_SmerGodinaPredmet" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

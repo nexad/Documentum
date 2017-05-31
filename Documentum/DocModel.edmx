@@ -1,0 +1,1093 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="documentumModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bookmarks">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dokumentTipId" Type="int" />
+          <Property Name="bookmarkName" Type="varchar" MaxLength="200" />
+          <Property Name="dataField" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Config">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="param_name" Type="varchar" MaxLength="200" />
+          <Property Name="param_value" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="DokumentTip">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="varchar" MaxLength="200" />
+          <Property Name="templatePath" Type="varchar" MaxLength="1000" />
+          <Property Name="dataSP" Type="varchar" MaxLength="1000" />
+          <Property Name="outputPath" Type="varchar" MaxLength="1000" />
+          <Property Name="previewTemplatePath" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="Grupa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Nastavnik">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ime" Type="varchar" MaxLength="50" />
+          <Property Name="prezime" Type="varchar" MaxLength="50" />
+          <Property Name="username" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="255" />
+          <Property Name="permission" Type="int" />
+        </EntityType>
+        <EntityType Name="Predmet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Razred">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="oznaka" Type="varchar" MaxLength="20" />
+          <Property Name="smerGodinaId" Type="int" />
+          <Property Name="nastavnikId" Type="int" />
+        </EntityType>
+        <EntityType Name="Smer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="varchar" MaxLength="500" />
+          <Property Name="stecenoZvanje" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="SmerGodina">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="smerId" Type="int" />
+          <Property Name="godina" Type="int" />
+        </EntityType>
+        <EntityType Name="SmerGodinaDokument">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="smerGodinaId" Type="int" />
+          <Property Name="dokumentTipId" Type="int" />
+        </EntityType>
+        <EntityType Name="SmerGodinaPredmet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="smerGodinaId" Type="int" />
+          <Property Name="predmetId" Type="int" />
+          <Property Name="grupaId" Type="int" />
+          <Property Name="uticeNaUspeh" Type="tinyint" />
+          <Property Name="redniBroj" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Ucenik">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="razredId" Type="int" />
+          <Property Name="ime" Type="varchar" MaxLength="50" />
+          <Property Name="prezime" Type="varchar" MaxLength="50" />
+          <Property Name="datum_rodjenja" Type="datetime" />
+          <Property Name="redniBroj" Type="int" />
+          <Property Name="brojMaticneKnjige" Type="varchar" MaxLength="50" />
+          <Property Name="imeRoditelja" Type="varchar" MaxLength="50" />
+          <Property Name="mestoRodjenja" Type="varchar" MaxLength="50" />
+          <Property Name="delovodniBroj" Type="varchar" MaxLength="50" />
+          <Property Name="kojiput" Type="varchar" MaxLength="50" />
+          <Property Name="opstina" Type="varchar" MaxLength="50" />
+          <Property Name="drzava" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UcenikDokument">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ucenikId" Type="int" />
+          <Property Name="dokumentTipId" Type="int" />
+          <Property Name="dokumentPath" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="UcenikGrupa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ucenikId" Type="int" />
+          <Property Name="grupaId" Type="int" />
+        </EntityType>
+        <EntityType Name="UcenikOcena">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ucenikId" Type="int" />
+          <Property Name="smerGodinaPredmetId" Type="int" />
+          <Property Name="ocena" Type="int" />
+          <Property Name="ocenaOpis" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Bookmarks_DokumentTip">
+          <End Role="DokumentTip" Type="Self.DokumentTip" Multiplicity="0..1" />
+          <End Role="Bookmarks" Type="Self.Bookmarks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DokumentTip">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bookmarks">
+              <PropertyRef Name="dokumentTipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Razred_Nastavnik">
+          <End Role="Nastavnik" Type="Self.Nastavnik" Multiplicity="0..1" />
+          <End Role="Razred" Type="Self.Razred" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nastavnik">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Razred">
+              <PropertyRef Name="nastavnikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Razred_SmerGodina">
+          <End Role="SmerGodina" Type="Self.SmerGodina" Multiplicity="0..1" />
+          <End Role="Razred" Type="Self.Razred" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SmerGodina">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Razred">
+              <PropertyRef Name="smerGodinaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SmerGodina_Smer">
+          <End Role="Smer" Type="Self.Smer" Multiplicity="0..1" />
+          <End Role="SmerGodina" Type="Self.SmerGodina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Smer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SmerGodina">
+              <PropertyRef Name="smerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SmerGodinaDokument_DokumentTip">
+          <End Role="DokumentTip" Type="Self.DokumentTip" Multiplicity="0..1" />
+          <End Role="SmerGodinaDokument" Type="Self.SmerGodinaDokument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DokumentTip">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SmerGodinaDokument">
+              <PropertyRef Name="dokumentTipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SmerGodinaDokument_SmerGodina">
+          <End Role="SmerGodina" Type="Self.SmerGodina" Multiplicity="0..1" />
+          <End Role="SmerGodinaDokument" Type="Self.SmerGodinaDokument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SmerGodina">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SmerGodinaDokument">
+              <PropertyRef Name="smerGodinaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SmerGodinaPredmet_Grupa">
+          <End Role="Grupa" Type="Self.Grupa" Multiplicity="0..1" />
+          <End Role="SmerGodinaPredmet" Type="Self.SmerGodinaPredmet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupa">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SmerGodinaPredmet">
+              <PropertyRef Name="grupaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SmerGodinaPredmet_Predmet">
+          <End Role="Predmet" Type="Self.Predmet" Multiplicity="0..1" />
+          <End Role="SmerGodinaPredmet" Type="Self.SmerGodinaPredmet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Predmet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SmerGodinaPredmet">
+              <PropertyRef Name="predmetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SmerGodinaPredmet_SmerGodina">
+          <End Role="SmerGodina" Type="Self.SmerGodina" Multiplicity="0..1" />
+          <End Role="SmerGodinaPredmet" Type="Self.SmerGodinaPredmet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SmerGodina">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SmerGodinaPredmet">
+              <PropertyRef Name="smerGodinaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ucenik_Razred">
+          <End Role="Razred" Type="Self.Razred" Multiplicity="0..1" />
+          <End Role="Ucenik" Type="Self.Ucenik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Razred">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ucenik">
+              <PropertyRef Name="razredId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UcenikDokument_DokumentTip">
+          <End Role="DokumentTip" Type="Self.DokumentTip" Multiplicity="0..1" />
+          <End Role="UcenikDokument" Type="Self.UcenikDokument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DokumentTip">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UcenikDokument">
+              <PropertyRef Name="dokumentTipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UcenikDokument_Ucenik">
+          <End Role="Ucenik" Type="Self.Ucenik" Multiplicity="0..1" />
+          <End Role="UcenikDokument" Type="Self.UcenikDokument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ucenik">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UcenikDokument">
+              <PropertyRef Name="ucenikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UcenikGrupa_Grupa">
+          <End Role="Grupa" Type="Self.Grupa" Multiplicity="0..1" />
+          <End Role="UcenikGrupa" Type="Self.UcenikGrupa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupa">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UcenikGrupa">
+              <PropertyRef Name="grupaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UcenikGrupa_Ucenik">
+          <End Role="Ucenik" Type="Self.Ucenik" Multiplicity="0..1" />
+          <End Role="UcenikGrupa" Type="Self.UcenikGrupa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ucenik">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UcenikGrupa">
+              <PropertyRef Name="ucenikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UcenikOcena_SmerGodinaPredmet">
+          <End Role="SmerGodinaPredmet" Type="Self.SmerGodinaPredmet" Multiplicity="0..1" />
+          <End Role="UcenikOcena" Type="Self.UcenikOcena" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SmerGodinaPredmet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UcenikOcena">
+              <PropertyRef Name="smerGodinaPredmetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UcenikOcena_Ucenik">
+          <End Role="Ucenik" Type="Self.Ucenik" Multiplicity="0..1" />
+          <End Role="UcenikOcena" Type="Self.UcenikOcena" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ucenik">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UcenikOcena">
+              <PropertyRef Name="ucenikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="documentumModelStoreContainer">
+          <EntitySet Name="Bookmarks" EntityType="Self.Bookmarks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Config" EntityType="Self.Config" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DokumentTip" EntityType="Self.DokumentTip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grupa" EntityType="Self.Grupa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Nastavnik" EntityType="Self.Nastavnik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Predmet" EntityType="Self.Predmet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Razred" EntityType="Self.Razred" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Smer" EntityType="Self.Smer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SmerGodina" EntityType="Self.SmerGodina" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SmerGodinaDokument" EntityType="Self.SmerGodinaDokument" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SmerGodinaPredmet" EntityType="Self.SmerGodinaPredmet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ucenik" EntityType="Self.Ucenik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UcenikDokument" EntityType="Self.UcenikDokument" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UcenikGrupa" EntityType="Self.UcenikGrupa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UcenikOcena" EntityType="Self.UcenikOcena" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Bookmarks_DokumentTip" Association="Self.FK_Bookmarks_DokumentTip">
+            <End Role="DokumentTip" EntitySet="DokumentTip" />
+            <End Role="Bookmarks" EntitySet="Bookmarks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Razred_Nastavnik" Association="Self.FK_Razred_Nastavnik">
+            <End Role="Nastavnik" EntitySet="Nastavnik" />
+            <End Role="Razred" EntitySet="Razred" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Razred_SmerGodina" Association="Self.FK_Razred_SmerGodina">
+            <End Role="SmerGodina" EntitySet="SmerGodina" />
+            <End Role="Razred" EntitySet="Razred" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SmerGodina_Smer" Association="Self.FK_SmerGodina_Smer">
+            <End Role="Smer" EntitySet="Smer" />
+            <End Role="SmerGodina" EntitySet="SmerGodina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SmerGodinaDokument_DokumentTip" Association="Self.FK_SmerGodinaDokument_DokumentTip">
+            <End Role="DokumentTip" EntitySet="DokumentTip" />
+            <End Role="SmerGodinaDokument" EntitySet="SmerGodinaDokument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SmerGodinaDokument_SmerGodina" Association="Self.FK_SmerGodinaDokument_SmerGodina">
+            <End Role="SmerGodina" EntitySet="SmerGodina" />
+            <End Role="SmerGodinaDokument" EntitySet="SmerGodinaDokument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SmerGodinaPredmet_Grupa" Association="Self.FK_SmerGodinaPredmet_Grupa">
+            <End Role="Grupa" EntitySet="Grupa" />
+            <End Role="SmerGodinaPredmet" EntitySet="SmerGodinaPredmet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SmerGodinaPredmet_Predmet" Association="Self.FK_SmerGodinaPredmet_Predmet">
+            <End Role="Predmet" EntitySet="Predmet" />
+            <End Role="SmerGodinaPredmet" EntitySet="SmerGodinaPredmet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SmerGodinaPredmet_SmerGodina" Association="Self.FK_SmerGodinaPredmet_SmerGodina">
+            <End Role="SmerGodina" EntitySet="SmerGodina" />
+            <End Role="SmerGodinaPredmet" EntitySet="SmerGodinaPredmet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ucenik_Razred" Association="Self.FK_Ucenik_Razred">
+            <End Role="Razred" EntitySet="Razred" />
+            <End Role="Ucenik" EntitySet="Ucenik" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UcenikDokument_DokumentTip" Association="Self.FK_UcenikDokument_DokumentTip">
+            <End Role="DokumentTip" EntitySet="DokumentTip" />
+            <End Role="UcenikDokument" EntitySet="UcenikDokument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UcenikDokument_Ucenik" Association="Self.FK_UcenikDokument_Ucenik">
+            <End Role="Ucenik" EntitySet="Ucenik" />
+            <End Role="UcenikDokument" EntitySet="UcenikDokument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UcenikGrupa_Grupa" Association="Self.FK_UcenikGrupa_Grupa">
+            <End Role="Grupa" EntitySet="Grupa" />
+            <End Role="UcenikGrupa" EntitySet="UcenikGrupa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UcenikGrupa_Ucenik" Association="Self.FK_UcenikGrupa_Ucenik">
+            <End Role="Ucenik" EntitySet="Ucenik" />
+            <End Role="UcenikGrupa" EntitySet="UcenikGrupa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UcenikOcena_SmerGodinaPredmet" Association="Self.FK_UcenikOcena_SmerGodinaPredmet">
+            <End Role="SmerGodinaPredmet" EntitySet="SmerGodinaPredmet" />
+            <End Role="UcenikOcena" EntitySet="UcenikOcena" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UcenikOcena_Ucenik" Association="Self.FK_UcenikOcena_Ucenik">
+            <End Role="Ucenik" EntitySet="Ucenik" />
+            <End Role="UcenikOcena" EntitySet="UcenikOcena" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="documentumModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bookmark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dokumentTipId" Type="Int32" />
+          <Property Name="bookmarkName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="dataField" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DokumentTip" Relationship="documentumModel.FK_Bookmarks_DokumentTip" FromRole="Bookmark" ToRole="DokumentTip" />
+        </EntityType>
+        <EntityType Name="Config">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="param_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="param_value" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="DokumentTip">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="templatePath" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="dataSP" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Bookmarks" Relationship="documentumModel.FK_Bookmarks_DokumentTip" FromRole="DokumentTip" ToRole="Bookmark" />
+          <NavigationProperty Name="SmerGodinaDokuments" Relationship="documentumModel.FK_SmerGodinaDokument_DokumentTip" FromRole="DokumentTip" ToRole="SmerGodinaDokument" />
+          <NavigationProperty Name="UcenikDokuments" Relationship="documentumModel.FK_UcenikDokument_DokumentTip" FromRole="DokumentTip" ToRole="UcenikDokument" />
+          <Property Name="outputPath" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="previewTemplatePath" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Grupa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SmerGodinaPredmets" Relationship="documentumModel.FK_SmerGodinaPredmet_Grupa" FromRole="Grupa" ToRole="SmerGodinaPredmet" />
+          <NavigationProperty Name="UcenikGrupas" Relationship="documentumModel.FK_UcenikGrupa_Grupa" FromRole="Grupa" ToRole="UcenikGrupa" />
+        </EntityType>
+        <EntityType Name="Nastavnik">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Razreds" Relationship="documentumModel.FK_Razred_Nastavnik" FromRole="Nastavnik" ToRole="Razred" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="permission" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Predmet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SmerGodinaPredmets" Relationship="documentumModel.FK_SmerGodinaPredmet_Predmet" FromRole="Predmet" ToRole="SmerGodinaPredmet" />
+        </EntityType>
+        <EntityType Name="Razred">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="oznaka" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="smerGodinaId" Type="Int32" />
+          <Property Name="nastavnikId" Type="Int32" />
+          <NavigationProperty Name="Nastavnik" Relationship="documentumModel.FK_Razred_Nastavnik" FromRole="Razred" ToRole="Nastavnik" />
+          <NavigationProperty Name="SmerGodina" Relationship="documentumModel.FK_Razred_SmerGodina" FromRole="Razred" ToRole="SmerGodina" />
+          <NavigationProperty Name="Uceniks" Relationship="documentumModel.FK_Ucenik_Razred" FromRole="Razred" ToRole="Ucenik" />
+        </EntityType>
+        <EntityType Name="Smer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="stecenoZvanje" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SmerGodinas" Relationship="documentumModel.FK_SmerGodina_Smer" FromRole="Smer" ToRole="SmerGodina" />
+        </EntityType>
+        <EntityType Name="SmerGodina">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="smerId" Type="Int32" />
+          <Property Name="godina" Type="Int32" />
+          <NavigationProperty Name="Razreds" Relationship="documentumModel.FK_Razred_SmerGodina" FromRole="SmerGodina" ToRole="Razred" />
+          <NavigationProperty Name="Smer" Relationship="documentumModel.FK_SmerGodina_Smer" FromRole="SmerGodina" ToRole="Smer" />
+          <NavigationProperty Name="SmerGodinaDokuments" Relationship="documentumModel.FK_SmerGodinaDokument_SmerGodina" FromRole="SmerGodina" ToRole="SmerGodinaDokument" />
+          <NavigationProperty Name="SmerGodinaPredmets" Relationship="documentumModel.FK_SmerGodinaPredmet_SmerGodina" FromRole="SmerGodina" ToRole="SmerGodinaPredmet" />
+        </EntityType>
+        <EntityType Name="SmerGodinaDokument">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="smerGodinaId" Type="Int32" />
+          <Property Name="dokumentTipId" Type="Int32" />
+          <NavigationProperty Name="DokumentTip" Relationship="documentumModel.FK_SmerGodinaDokument_DokumentTip" FromRole="SmerGodinaDokument" ToRole="DokumentTip" />
+          <NavigationProperty Name="SmerGodina" Relationship="documentumModel.FK_SmerGodinaDokument_SmerGodina" FromRole="SmerGodinaDokument" ToRole="SmerGodina" />
+        </EntityType>
+        <EntityType Name="SmerGodinaPredmet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="smerGodinaId" Type="Int32" />
+          <Property Name="predmetId" Type="Int32" />
+          <Property Name="grupaId" Type="Int32" />
+          <NavigationProperty Name="Grupa" Relationship="documentumModel.FK_SmerGodinaPredmet_Grupa" FromRole="SmerGodinaPredmet" ToRole="Grupa" />
+          <NavigationProperty Name="Predmet" Relationship="documentumModel.FK_SmerGodinaPredmet_Predmet" FromRole="SmerGodinaPredmet" ToRole="Predmet" />
+          <NavigationProperty Name="SmerGodina" Relationship="documentumModel.FK_SmerGodinaPredmet_SmerGodina" FromRole="SmerGodinaPredmet" ToRole="SmerGodina" />
+          <Property Name="uticeNaUspeh" Type="Byte" />
+          <NavigationProperty Name="UcenikOcenas" Relationship="documentumModel.FK_UcenikOcena_SmerGodinaPredmet" FromRole="SmerGodinaPredmet" ToRole="UcenikOcena" />
+          <Property Name="redniBroj" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Ucenik">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="razredId" Type="Int32" />
+          <Property Name="ime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="datum_rodjenja" Type="DateTime" Precision="3" />
+          <Property Name="redniBroj" Type="Int32" />
+          <NavigationProperty Name="Razred" Relationship="documentumModel.FK_Ucenik_Razred" FromRole="Ucenik" ToRole="Razred" />
+          <NavigationProperty Name="UcenikDokuments" Relationship="documentumModel.FK_UcenikDokument_Ucenik" FromRole="Ucenik" ToRole="UcenikDokument" />
+          <NavigationProperty Name="UcenikGrupas" Relationship="documentumModel.FK_UcenikGrupa_Ucenik" FromRole="Ucenik" ToRole="UcenikGrupa" />
+          <NavigationProperty Name="UcenikOcenas" Relationship="documentumModel.FK_UcenikOcena_Ucenik" FromRole="Ucenik" ToRole="UcenikOcena" />
+          <Property Name="brojMaticneKnjige" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="imeRoditelja" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mestoRodjenja" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="delovodniBroj" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="kojiput" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="opstina" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="drzava" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="UcenikDokument">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ucenikId" Type="Int32" />
+          <Property Name="dokumentTipId" Type="Int32" />
+          <Property Name="dokumentPath" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DokumentTip" Relationship="documentumModel.FK_UcenikDokument_DokumentTip" FromRole="UcenikDokument" ToRole="DokumentTip" />
+          <NavigationProperty Name="Ucenik" Relationship="documentumModel.FK_UcenikDokument_Ucenik" FromRole="UcenikDokument" ToRole="Ucenik" />
+        </EntityType>
+        <EntityType Name="UcenikGrupa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ucenikId" Type="Int32" />
+          <Property Name="grupaId" Type="Int32" />
+          <NavigationProperty Name="Grupa" Relationship="documentumModel.FK_UcenikGrupa_Grupa" FromRole="UcenikGrupa" ToRole="Grupa" />
+          <NavigationProperty Name="Ucenik" Relationship="documentumModel.FK_UcenikGrupa_Ucenik" FromRole="UcenikGrupa" ToRole="Ucenik" />
+        </EntityType>
+        <EntityType Name="UcenikOcena">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ucenikId" Type="Int32" />
+          <Property Name="ocena" Type="Int32" />
+          <NavigationProperty Name="Ucenik" Relationship="documentumModel.FK_UcenikOcena_Ucenik" FromRole="UcenikOcena" ToRole="Ucenik" />
+          <Property Name="smerGodinaPredmetId" Type="Int32" />
+          <Property Name="ocenaOpis" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SmerGodinaPredmet" Relationship="documentumModel.FK_UcenikOcena_SmerGodinaPredmet" FromRole="UcenikOcena" ToRole="SmerGodinaPredmet" />
+        </EntityType>
+        <EntityContainer Name="documentumEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bookmarks" EntityType="Self.Bookmark" />
+          <EntitySet Name="Configs" EntityType="Self.Config" />
+          <EntitySet Name="DokumentTips" EntityType="Self.DokumentTip" />
+          <EntitySet Name="Grupas" EntityType="Self.Grupa" />
+          <EntitySet Name="Nastavniks" EntityType="Self.Nastavnik" />
+          <EntitySet Name="Predmets" EntityType="Self.Predmet" />
+          <EntitySet Name="Razreds" EntityType="Self.Razred" />
+          <EntitySet Name="Smers" EntityType="Self.Smer" />
+          <EntitySet Name="SmerGodinas" EntityType="Self.SmerGodina" />
+          <EntitySet Name="SmerGodinaDokuments" EntityType="Self.SmerGodinaDokument" />
+          <EntitySet Name="SmerGodinaPredmets" EntityType="Self.SmerGodinaPredmet" />
+          <EntitySet Name="Uceniks" EntityType="Self.Ucenik" />
+          <EntitySet Name="UcenikDokuments" EntityType="Self.UcenikDokument" />
+          <EntitySet Name="UcenikGrupas" EntityType="Self.UcenikGrupa" />
+          <EntitySet Name="UcenikOcenas" EntityType="Self.UcenikOcena" />
+          <EntitySet Name="sysdiagrams" EntityType="documentumModel.sysdiagram" />
+          <AssociationSet Name="FK_Bookmarks_DokumentTip" Association="documentumModel.FK_Bookmarks_DokumentTip">
+            <End Role="DokumentTip" EntitySet="DokumentTips" />
+            <End Role="Bookmark" EntitySet="Bookmarks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SmerGodinaDokument_DokumentTip" Association="documentumModel.FK_SmerGodinaDokument_DokumentTip">
+            <End Role="DokumentTip" EntitySet="DokumentTips" />
+            <End Role="SmerGodinaDokument" EntitySet="SmerGodinaDokuments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UcenikDokument_DokumentTip" Association="documentumModel.FK_UcenikDokument_DokumentTip">
+            <End Role="DokumentTip" EntitySet="DokumentTips" />
+            <End Role="UcenikDokument" EntitySet="UcenikDokuments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SmerGodinaPredmet_Grupa" Association="documentumModel.FK_SmerGodinaPredmet_Grupa">
+            <End Role="Grupa" EntitySet="Grupas" />
+            <End Role="SmerGodinaPredmet" EntitySet="SmerGodinaPredmets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UcenikGrupa_Grupa" Association="documentumModel.FK_UcenikGrupa_Grupa">
+            <End Role="Grupa" EntitySet="Grupas" />
+            <End Role="UcenikGrupa" EntitySet="UcenikGrupas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Razred_Nastavnik" Association="documentumModel.FK_Razred_Nastavnik">
+            <End Role="Nastavnik" EntitySet="Nastavniks" />
+            <End Role="Razred" EntitySet="Razreds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SmerGodinaPredmet_Predmet" Association="documentumModel.FK_SmerGodinaPredmet_Predmet">
+            <End Role="Predmet" EntitySet="Predmets" />
+            <End Role="SmerGodinaPredmet" EntitySet="SmerGodinaPredmets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Razred_SmerGodina" Association="documentumModel.FK_Razred_SmerGodina">
+            <End Role="SmerGodina" EntitySet="SmerGodinas" />
+            <End Role="Razred" EntitySet="Razreds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ucenik_Razred" Association="documentumModel.FK_Ucenik_Razred">
+            <End Role="Razred" EntitySet="Razreds" />
+            <End Role="Ucenik" EntitySet="Uceniks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SmerGodina_Smer" Association="documentumModel.FK_SmerGodina_Smer">
+            <End Role="Smer" EntitySet="Smers" />
+            <End Role="SmerGodina" EntitySet="SmerGodinas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SmerGodinaDokument_SmerGodina" Association="documentumModel.FK_SmerGodinaDokument_SmerGodina">
+            <End Role="SmerGodina" EntitySet="SmerGodinas" />
+            <End Role="SmerGodinaDokument" EntitySet="SmerGodinaDokuments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SmerGodinaPredmet_SmerGodina" Association="documentumModel.FK_SmerGodinaPredmet_SmerGodina">
+            <End Role="SmerGodina" EntitySet="SmerGodinas" />
+            <End Role="SmerGodinaPredmet" EntitySet="SmerGodinaPredmets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UcenikDokument_Ucenik" Association="documentumModel.FK_UcenikDokument_Ucenik">
+            <End Role="Ucenik" EntitySet="Uceniks" />
+            <End Role="UcenikDokument" EntitySet="UcenikDokuments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UcenikGrupa_Ucenik" Association="documentumModel.FK_UcenikGrupa_Ucenik">
+            <End Role="Ucenik" EntitySet="Uceniks" />
+            <End Role="UcenikGrupa" EntitySet="UcenikGrupas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UcenikOcena_Ucenik" Association="documentumModel.FK_UcenikOcena_Ucenik">
+            <End Role="Ucenik" EntitySet="Uceniks" />
+            <End Role="UcenikOcena" EntitySet="UcenikOcenas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UcenikOcena_SmerGodinaPredmet" Association="documentumModel.FK_UcenikOcena_SmerGodinaPredmet">
+            <End Role="SmerGodinaPredmet" EntitySet="SmerGodinaPredmets" />
+            <End Role="UcenikOcena" EntitySet="UcenikOcenas" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Bookmarks_DokumentTip">
+          <End Type="documentumModel.DokumentTip" Role="DokumentTip" Multiplicity="0..1" />
+          <End Type="documentumModel.Bookmark" Role="Bookmark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DokumentTip">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bookmark">
+              <PropertyRef Name="dokumentTipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SmerGodinaDokument_DokumentTip">
+          <End Type="documentumModel.DokumentTip" Role="DokumentTip" Multiplicity="0..1" />
+          <End Type="documentumModel.SmerGodinaDokument" Role="SmerGodinaDokument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DokumentTip">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SmerGodinaDokument">
+              <PropertyRef Name="dokumentTipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UcenikDokument_DokumentTip">
+          <End Type="documentumModel.DokumentTip" Role="DokumentTip" Multiplicity="0..1" />
+          <End Type="documentumModel.UcenikDokument" Role="UcenikDokument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DokumentTip">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UcenikDokument">
+              <PropertyRef Name="dokumentTipId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SmerGodinaPredmet_Grupa">
+          <End Type="documentumModel.Grupa" Role="Grupa" Multiplicity="0..1" />
+          <End Type="documentumModel.SmerGodinaPredmet" Role="SmerGodinaPredmet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupa">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SmerGodinaPredmet">
+              <PropertyRef Name="grupaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UcenikGrupa_Grupa">
+          <End Type="documentumModel.Grupa" Role="Grupa" Multiplicity="0..1" />
+          <End Type="documentumModel.UcenikGrupa" Role="UcenikGrupa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupa">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UcenikGrupa">
+              <PropertyRef Name="grupaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Razred_Nastavnik">
+          <End Type="documentumModel.Nastavnik" Role="Nastavnik" Multiplicity="0..1" />
+          <End Type="documentumModel.Razred" Role="Razred" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Nastavnik">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Razred">
+              <PropertyRef Name="nastavnikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SmerGodinaPredmet_Predmet">
+          <End Type="documentumModel.Predmet" Role="Predmet" Multiplicity="0..1" />
+          <End Type="documentumModel.SmerGodinaPredmet" Role="SmerGodinaPredmet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Predmet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SmerGodinaPredmet">
+              <PropertyRef Name="predmetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Razred_SmerGodina">
+          <End Type="documentumModel.SmerGodina" Role="SmerGodina" Multiplicity="0..1" />
+          <End Type="documentumModel.Razred" Role="Razred" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SmerGodina">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Razred">
+              <PropertyRef Name="smerGodinaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ucenik_Razred">
+          <End Type="documentumModel.Razred" Role="Razred" Multiplicity="0..1" />
+          <End Type="documentumModel.Ucenik" Role="Ucenik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Razred">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ucenik">
+              <PropertyRef Name="razredId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SmerGodina_Smer">
+          <End Type="documentumModel.Smer" Role="Smer" Multiplicity="0..1" />
+          <End Type="documentumModel.SmerGodina" Role="SmerGodina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Smer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SmerGodina">
+              <PropertyRef Name="smerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SmerGodinaDokument_SmerGodina">
+          <End Type="documentumModel.SmerGodina" Role="SmerGodina" Multiplicity="0..1" />
+          <End Type="documentumModel.SmerGodinaDokument" Role="SmerGodinaDokument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SmerGodina">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SmerGodinaDokument">
+              <PropertyRef Name="smerGodinaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SmerGodinaPredmet_SmerGodina">
+          <End Type="documentumModel.SmerGodina" Role="SmerGodina" Multiplicity="0..1" />
+          <End Type="documentumModel.SmerGodinaPredmet" Role="SmerGodinaPredmet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SmerGodina">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SmerGodinaPredmet">
+              <PropertyRef Name="smerGodinaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UcenikDokument_Ucenik">
+          <End Type="documentumModel.Ucenik" Role="Ucenik" Multiplicity="0..1" />
+          <End Type="documentumModel.UcenikDokument" Role="UcenikDokument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ucenik">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UcenikDokument">
+              <PropertyRef Name="ucenikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UcenikGrupa_Ucenik">
+          <End Type="documentumModel.Ucenik" Role="Ucenik" Multiplicity="0..1" />
+          <End Type="documentumModel.UcenikGrupa" Role="UcenikGrupa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ucenik">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UcenikGrupa">
+              <PropertyRef Name="ucenikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UcenikOcena_Ucenik">
+          <End Type="documentumModel.Ucenik" Role="Ucenik" Multiplicity="0..1" />
+          <End Type="documentumModel.UcenikOcena" Role="UcenikOcena" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ucenik">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UcenikOcena">
+              <PropertyRef Name="ucenikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UcenikOcena_SmerGodinaPredmet">
+          <End Type="documentumModel.SmerGodinaPredmet" Role="SmerGodinaPredmet" Multiplicity="0..1" />
+          <End Type="documentumModel.UcenikOcena" Role="UcenikOcena" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SmerGodinaPredmet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UcenikOcena">
+              <PropertyRef Name="smerGodinaPredmetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="documentumModelStoreContainer" CdmEntityContainer="documentumEntities">
+          <EntitySetMapping Name="Bookmarks">
+            <EntityTypeMapping TypeName="documentumModel.Bookmark">
+              <MappingFragment StoreEntitySet="Bookmarks">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="dokumentTipId" ColumnName="dokumentTipId" />
+                <ScalarProperty Name="bookmarkName" ColumnName="bookmarkName" />
+                <ScalarProperty Name="dataField" ColumnName="dataField" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Configs">
+            <EntityTypeMapping TypeName="documentumModel.Config">
+              <MappingFragment StoreEntitySet="Config">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="param_name" ColumnName="param_name" />
+                <ScalarProperty Name="param_value" ColumnName="param_value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DokumentTips">
+            <EntityTypeMapping TypeName="documentumModel.DokumentTip">
+              <MappingFragment StoreEntitySet="DokumentTip">
+                <ScalarProperty Name="previewTemplatePath" ColumnName="previewTemplatePath" />
+                <ScalarProperty Name="outputPath" ColumnName="outputPath" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="templatePath" ColumnName="templatePath" />
+                <ScalarProperty Name="dataSP" ColumnName="dataSP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Grupas">
+            <EntityTypeMapping TypeName="documentumModel.Grupa">
+              <MappingFragment StoreEntitySet="Grupa">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Nastavniks">
+            <EntityTypeMapping TypeName="documentumModel.Nastavnik">
+              <MappingFragment StoreEntitySet="Nastavnik">
+                <ScalarProperty Name="permission" ColumnName="permission" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ime" ColumnName="ime" />
+                <ScalarProperty Name="prezime" ColumnName="prezime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Predmets">
+            <EntityTypeMapping TypeName="documentumModel.Predmet">
+              <MappingFragment StoreEntitySet="Predmet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Razreds">
+            <EntityTypeMapping TypeName="documentumModel.Razred">
+              <MappingFragment StoreEntitySet="Razred">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="oznaka" ColumnName="oznaka" />
+                <ScalarProperty Name="smerGodinaId" ColumnName="smerGodinaId" />
+                <ScalarProperty Name="nastavnikId" ColumnName="nastavnikId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Smers">
+            <EntityTypeMapping TypeName="documentumModel.Smer">
+              <MappingFragment StoreEntitySet="Smer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="stecenoZvanje" ColumnName="stecenoZvanje" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SmerGodinas">
+            <EntityTypeMapping TypeName="documentumModel.SmerGodina">
+              <MappingFragment StoreEntitySet="SmerGodina">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="smerId" ColumnName="smerId" />
+                <ScalarProperty Name="godina" ColumnName="godina" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SmerGodinaDokuments">
+            <EntityTypeMapping TypeName="documentumModel.SmerGodinaDokument">
+              <MappingFragment StoreEntitySet="SmerGodinaDokument">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="smerGodinaId" ColumnName="smerGodinaId" />
+                <ScalarProperty Name="dokumentTipId" ColumnName="dokumentTipId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SmerGodinaPredmets">
+            <EntityTypeMapping TypeName="documentumModel.SmerGodinaPredmet">
+              <MappingFragment StoreEntitySet="SmerGodinaPredmet">
+                <ScalarProperty Name="redniBroj" ColumnName="redniBroj" />
+                <ScalarProperty Name="uticeNaUspeh" ColumnName="uticeNaUspeh" />
+                <ScalarProperty Name="grupaId" ColumnName="grupaId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="smerGodinaId" ColumnName="smerGodinaId" />
+                <ScalarProperty Name="predmetId" ColumnName="predmetId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Uceniks">
+            <EntityTypeMapping TypeName="documentumModel.Ucenik">
+              <MappingFragment StoreEntitySet="Ucenik">
+                <ScalarProperty Name="drzava" ColumnName="drzava" />
+                <ScalarProperty Name="opstina" ColumnName="opstina" />
+                <ScalarProperty Name="kojiput" ColumnName="kojiput" />
+                <ScalarProperty Name="delovodniBroj" ColumnName="delovodniBroj" />
+                <ScalarProperty Name="mestoRodjenja" ColumnName="mestoRodjenja" />
+                <ScalarProperty Name="imeRoditelja" ColumnName="imeRoditelja" />
+                <ScalarProperty Name="brojMaticneKnjige" ColumnName="brojMaticneKnjige" />
+                <ScalarProperty Name="redniBroj" ColumnName="redniBroj" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="razredId" ColumnName="razredId" />
+                <ScalarProperty Name="ime" ColumnName="ime" />
+                <ScalarProperty Name="prezime" ColumnName="prezime" />
+                <ScalarProperty Name="datum_rodjenja" ColumnName="datum_rodjenja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UcenikDokuments">
+            <EntityTypeMapping TypeName="documentumModel.UcenikDokument">
+              <MappingFragment StoreEntitySet="UcenikDokument">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ucenikId" ColumnName="ucenikId" />
+                <ScalarProperty Name="dokumentTipId" ColumnName="dokumentTipId" />
+                <ScalarProperty Name="dokumentPath" ColumnName="dokumentPath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UcenikGrupas">
+            <EntityTypeMapping TypeName="documentumModel.UcenikGrupa">
+              <MappingFragment StoreEntitySet="UcenikGrupa">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ucenikId" ColumnName="ucenikId" />
+                <ScalarProperty Name="grupaId" ColumnName="grupaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UcenikOcenas">
+            <EntityTypeMapping TypeName="documentumModel.UcenikOcena">
+              <MappingFragment StoreEntitySet="UcenikOcena">
+                <ScalarProperty Name="ocenaOpis" ColumnName="ocenaOpis" />
+                <ScalarProperty Name="smerGodinaPredmetId" ColumnName="smerGodinaPredmetId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ucenikId" ColumnName="ucenikId" />
+                <ScalarProperty Name="ocena" ColumnName="ocena" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="documentumModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
