@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Packaging;
+using MetroFramework.Controls;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml.Linq;
 
 namespace Documentum
@@ -113,6 +115,34 @@ namespace Documentum
             }
 
             return docOutputPath;
+        }
+
+        public static int GetSelectedGridId(MetroGrid metroGrid, string field = "Id")
+        {
+
+            DataGridViewRow selectedRow = null;
+            if (metroGrid.SelectedRows.Count > 0)
+            {
+                selectedRow = metroGrid.SelectedRows[0];
+            }
+            if (selectedRow == null)
+                return -1;
+            int selectedId = Convert.ToInt32(selectedRow.Cells["Id"].Value.ToString());
+            return selectedId;
+        }
+
+        public static object GetSelectedGridCellValue(MetroGrid metroGrid, string field = "Id")
+        {
+
+            DataGridViewRow selectedRow = null;
+            if (metroGrid.SelectedRows.Count > 0)
+            {
+                selectedRow = metroGrid.SelectedRows[0];
+            }
+            if (selectedRow == null)
+                return -1;
+            var selected = selectedRow.Cells["Id"].Value;
+            return selected;
         }
     }
 }

@@ -92,28 +92,20 @@ namespace Documentum
 
         private void ReloadGridUceniciData()
         {
-
-            DataGridViewRow selectedRow = null;
-            if (metroGridRazredi.SelectedRows.Count > 0)
-            {
-                selectedRow = metroGridRazredi.SelectedRows[0];
-            }
-            if (selectedRow == null)
-                return;
-
-            int razredId = Convert.ToInt32(selectedRow.Cells["Id"].Value.ToString());
             
-            if (razredId != 0)
+            int razredId = DocumentumFactory.GetSelectedGridId(metroGridRazredi);
+
+            if (razredId != -1)
             {
                 this.RazredId = razredId;
-
-                string oznaka = selectedRow.Cells["oznaka"].Value.ToString();
-                mlRazredNaziv.Text = oznaka;
-                oznaka = System.Text.RegularExpressions.Regex.Replace(oznaka, @"[^\w\d]", string.Empty);
-                mtbImportFileName.Text = DocumentumFactory.ResolveDirectoryPath("IMPORT_EXCEL_FOLDER") + oznaka+"-"+ DocumentumFactory.ReadConfigParam("IMPORT_FILE_NAME");
-
                 using (var context = new documentumEntities())
                 {
+                    Razred razred = context.Razreds.SingleOrDefault(r => r.Id == razredId);
+                     
+                    mlRazredNaziv.Text = razred.oznaka;
+                    string oznaka = System.Text.RegularExpressions.Regex.Replace(razred.oznaka, @"[^\w\d]", string.Empty);
+                    mtbImportFileName.Text = DocumentumFactory.ResolveDirectoryPath("IMPORT_EXCEL_FOLDER") + oznaka+"-"+ DocumentumFactory.ReadConfigParam("IMPORT_FILE_NAME");
+                    
                     var ucenici = from Ucenik in context.Uceniks.Where(u => u.razredId == razredId)
                                   select new
                                   {
@@ -574,7 +566,7 @@ namespace Documentum
             }
         }
 
-        private void metroButton1_Click(object sender, EventArgs e)
+        private void MetroButton1_Click(object sender, EventArgs e)
         {
             string fileName = mtbImportFileName.Text.ToString();
             ImportFileUcenici(fileName);
@@ -582,25 +574,19 @@ namespace Documentum
             ReloadGridDokumenta();
         }
 
-        private void metroGridRazredi_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void MetroGridRazredi_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             ReloadGridUceniciData();
             ReloadGridDokumenta();
         }
 
-        private void metroGridUcenici_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void MetroGridUcenici_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            DataGridViewRow selectedRow = null;
-            if (metroGridUcenici.SelectedRows.Count > 0)
-            {
-                selectedRow = metroGridUcenici.SelectedRows[0];
-            }
-            if (selectedRow == null)
-                return;
+            
 
-            int ucenikId = Convert.ToInt32(selectedRow.Cells["Id"].Value.ToString());
+            int ucenikId = DocumentumFactory.GetSelectedGridId(metroGridUcenici);
 
-            if (ucenikId != 0)
+            if (ucenikId != -1)
             {
                 FormDetaljiUcenika formDetaljiUcenika = new FormDetaljiUcenika();
                 formDetaljiUcenika.UcenikId = ucenikId;
@@ -609,7 +595,7 @@ namespace Documentum
             }
         }
 
-        private void metroButton2_Click(object sender, EventArgs e)
+        private void MetroButton2_Click(object sender, EventArgs e)
         {
             string fileName = mtbImportFileName.Text.ToString();
             ImportFileOcene(fileName);
@@ -650,38 +636,58 @@ namespace Documentum
 
         }
 
-        private void mbPreview_Click(object sender, EventArgs e)
+        private void MbPreview_Click(object sender, EventArgs e)
         {
-            DataGridViewRow selectedRow = null;
-            if (metroGridUcenici.SelectedRows.Count > 0)
-            {
-                selectedRow = metroGridUcenici.SelectedRows[0];
-            }
-            if (selectedRow == null)
-                return;
-            int ucenikId = Convert.ToInt32(selectedRow.Cells["Id"].Value.ToString());
+            
+            int ucenikId = DocumentumFactory.GetSelectedGridId(metroGridUcenici);
+            
+            int documentTipId = DocumentumFactory.GetSelectedGridId(metroGridDokumenta, "DokumentTipId");
 
-            selectedRow = null;
-            if (metroGridDokumenta.SelectedRows.Count > 0)
-            {
-                selectedRow = metroGridDokumenta.SelectedRows[0];
-            }
-            if (selectedRow == null)
+            if (ucenikId == -1 || documentTipId == -1)
                 return;
-            int documentTipId = Convert.ToInt32(selectedRow.Cells["DokumentTipId"].Value.ToString());
 
-            string docOutputPath = "";
-            docOutputPath = DocumentumFactory.GenerateDocument(ucenikId, documentTipId, true);
+            string docOutputPath = DocumentumFactory.GenerateDocument(ucenikId, documentTipId, true);
             if (File.Exists(docOutputPath))
             {
                 Microsoft.Office.Interop.Word.Application wordApp = new Microsoft.Office.Interop.Word.Application();
                 wordApp.Visible = true;
-                Microsoft.Office.Interop.Word.Document docPrint = wordApp.Documents.Add(docOutputPath);
+                Microsoft.Office.Interop.Word.Document docPrint = wordApp.Documents.Open(docOutputPath);
             }
 
         }
 
-        
+        private void MbGenerate_Click(object sender, EventArgs e)
+        {
+            int documentTipId = DocumentumFactory.GetSelectedGridId(metroGridDokumenta, "DokumentTipId");
+
+            using (var context = new documentumEntities())
+            {
+                foreach (Ucenik ucenik in context.Uceniks.Where(u=> u.razredId == RazredId))
+                {
+                    string docOutputPath = DocumentumFactory.GenerateDocument(ucenik.Id, documentTipId, false);
+                    UcenikDokument ucenikDokument = context.UcenikDokuments.SingleOrDefault(d => d.ucenikId == ucenik.Id && d.dokumentTipId == documentTipId);
+                    if (ucenikDokument == null)
+                    {
+                        ucenikDokument = new UcenikDokument()
+                        {
+                            ucenikId = ucenik.Id,
+                            dokumentTipId = documentTipId,
+                            dokumentPath = docOutputPath
+                        };
+                        context.UcenikDokuments.Add(ucenikDokument);
+                    } else
+                    {
+                        ucenikDokument.dokumentPath = docOutputPath;
+                    }
+                }
+                context.SaveChanges();
+            }
+        }
+
+        private void mbPrint_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }
