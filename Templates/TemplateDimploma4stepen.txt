@@ -1,0 +1,25 @@
+<root>
+  <_nazivskole>nazivskole</_nazivskole>
+  <_sediste>sediste</_sediste>
+  <_resenje>resenje</_resenje>
+  <_datum>datum</_datum>
+  <_delovodnibroj>delovodnibroj</_delovodnibroj>
+  <_imeprezime>imeprezime</_imeprezime>
+  <_imeroditelja>imeroditelja</_imeroditelja>
+  <_datrodj>datrodj</_datrodj>
+  <_mestorodj>mestorodj</_mestorodj>
+  <_opstina>opstina</_opstina>
+  <_drzava>drzava</_drzava>
+  <_gimnazijesmer>gimnazijesmer</_gimnazijesmer>
+  <_zaobrazovaniprofil>zaobrazovaniprofil</_zaobrazovaniprofil>
+  <_rok>rok</_rok>
+  <_matpredmet1>matpredmet1</_matpredmet1>
+  <_matocena1>matocena1</_matocena1>
+  <_matpredmet2>matpredmet2</_matpredmet2>
+  <_matocena2>matocena2</_matocena2>
+  <_matpredmet3>matpredmet3</_matpredmet3>
+  <_matocena3>matocena3</_matocena3>
+  <_nazivrada>nazivrada</_nazivrada>
+  <_konocena>konocena</_konocena>
+  <_uspeh>uspeh</_uspeh>
+</root>
