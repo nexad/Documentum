@@ -13,6 +13,7 @@ using System.Xml.Linq;
 
 namespace Documentum
 {
+
     class DocumentumFactory
     {
         public static IDictionary marks = new Dictionary<int, string>() { {1, "Недовољан" }, {2, "Довољан"}, {3, "Добар"}, {4, "Врло добар"}, {5, "Одличан"}};
@@ -47,14 +48,14 @@ namespace Documentum
             return path;
         }
 
-        public static string GenerateDocument(int ucenikId, int documentTipId, bool preview)
+        public static string GenerateDocument(Ucenik ucenik, int documentTipId, bool preview)
         {
             string docOutputPath;
             using (var context = new documentumEntities())
             {
                 var classIdParameter = new SqlParameter("@ClassId", -1);
                 var documentTypeIdParameter = new SqlParameter("@DocumentTypeId", documentTipId);
-                var studentIdParameter = new SqlParameter("@StudentId", ucenikId);
+                var studentIdParameter = new SqlParameter("@StudentId", ucenik.Id);
 
                 DokumentTip dokumentTip = context.DokumentTips.SingleOrDefault(d => d.Id == documentTipId);
 
@@ -67,12 +68,12 @@ namespace Documentum
                 //get path to template and instance output
                 if (preview)
                 {
-                    docTemplatePath = DocumentumFactory.ResolveDirectoryPath("TEMPLATE_FOLDER") + dokumentTip.previewTemplatePath;
-                    docOutputPath = DocumentumFactory.ResolveDirectoryPath("TEMP_FOLDER") + ucenikId + "_" + dokumentTip.Id + "_" + dokumentTip.outputPath;
+                    docTemplatePath = ResolveDirectoryPath("TEMPLATE_FOLDER") + dokumentTip.previewTemplatePath;
+                    docOutputPath = String.Format(ResolveDirectoryPath("TEMP_FOLDER") + dokumentTip.outputPath, ucenik.Id, documentTipId, ucenik.prezime+ucenik.ime);
                 } else
                 {
-                    docTemplatePath = DocumentumFactory.ResolveDirectoryPath("TEMPLATE_FOLDER") + dokumentTip.previewTemplatePath;
-                    docOutputPath = DocumentumFactory.ResolveDirectoryPath("TEMP_FOLDER") + ucenikId + "_" + dokumentTip.Id + "_" + dokumentTip.outputPath;
+                    docTemplatePath = ResolveDirectoryPath("TEMPLATE_FOLDER") + dokumentTip.templatePath;
+                    docOutputPath = String.Format(ResolveDirectoryPath("OUTPUT_FOLDER") + dokumentTip.outputPath, ucenik.Id, documentTipId, ucenik.prezime + ucenik.ime);
                 }
                 //create copy of template so that we don't overwrite it
                 try
@@ -127,7 +128,7 @@ namespace Documentum
             }
             if (selectedRow == null)
                 return -1;
-            int selectedId = Convert.ToInt32(selectedRow.Cells["Id"].Value.ToString());
+            int selectedId = Convert.ToInt32(selectedRow.Cells[field].Value.ToString());
             return selectedId;
         }
 
@@ -140,8 +141,8 @@ namespace Documentum
                 selectedRow = metroGrid.SelectedRows[0];
             }
             if (selectedRow == null)
-                return -1;
-            var selected = selectedRow.Cells["Id"].Value;
+                return "";
+            var selected = selectedRow.Cells[field].Value;
             return selected;
         }
     }

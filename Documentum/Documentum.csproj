@@ -142,6 +142,7 @@
     <Compile Include="SmerGodinaPredmet.cs">
       <DependentUpon>DocModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="StudentDocumentStatus.cs" />
     <Compile Include="sysdiagram.cs">
       <DependentUpon>DocModel.tt</DependentUpon>
     </Compile>

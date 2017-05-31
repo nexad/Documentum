@@ -138,6 +138,7 @@
           <Property Name="ucenikId" Type="int" />
           <Property Name="dokumentTipId" Type="int" />
           <Property Name="dokumentPath" Type="varchar" MaxLength="1000" />
+          <Property Name="status" Type="int" />
         </EntityType>
         <EntityType Name="UcenikGrupa">
           <Key>
@@ -586,6 +587,7 @@
           <Property Name="dokumentPath" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DokumentTip" Relationship="documentumModel.FK_UcenikDokument_DokumentTip" FromRole="UcenikDokument" ToRole="DokumentTip" />
           <NavigationProperty Name="Ucenik" Relationship="documentumModel.FK_UcenikDokument_Ucenik" FromRole="UcenikDokument" ToRole="Ucenik" />
+          <Property Name="status" Type="Int32" />
         </EntityType>
         <EntityType Name="UcenikGrupa">
           <Key>
@@ -1029,6 +1031,7 @@
           <EntitySetMapping Name="UcenikDokuments">
             <EntityTypeMapping TypeName="documentumModel.UcenikDokument">
               <MappingFragment StoreEntitySet="UcenikDokument">
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="ucenikId" ColumnName="ucenikId" />
                 <ScalarProperty Name="dokumentTipId" ColumnName="dokumentTipId" />

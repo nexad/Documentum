@@ -3,6 +3,7 @@
 if object_id('DeleteStudents') is not null
 drop proc dbo.DeleteStudents
 go
+-- DeleteStudents 1
 create proc dbo.DeleteStudents 
 @ClassId int
 as
@@ -15,6 +16,11 @@ begin
 
 	delete uo
 	from UcenikOcena uo
+	join Ucenik u on u.Id = uo.ucenikId
+	where u.razredId = @ClassId
+
+	delete uo
+	from UcenikDokument uo
 	join Ucenik u on u.Id = uo.ucenikId
 	where u.razredId = @ClassId
 
@@ -89,15 +95,59 @@ begin
 end
 go
 
+if object_id('SinhronizeStudentsDocuments') is not null
+drop proc dbo.SinhronizeStudentsDocuments
+go
+create proc dbo.SinhronizeStudentsDocuments
+	@ClassId int
+as
+begin
+	
+	select * into #UcenikDokument
+	from UcenikDokument
+	where 0>0
+
+	insert into #UcenikDokument (ucenikId, dokumentTipId, dokumentPath, [status])
+	select u.Id, sgd.dokumentTipId,'' , 0
+	from Ucenik u
+	join Razred r on u.razredId = r.Id
+	join SmerGodina sg on sg.Id = r.smerGodinaId
+	join SmerGodinaDokument sgd on sgd.smerGodinaId = sg.Id 
+	where (@ClassId = 0 or r.Id = @ClassId)
+
+	delete tuo
+	from #UcenikDokument tuo 
+	join UcenikDokument uo on uo.ucenikId = tuo.ucenikId and uo.dokumentTipId = tuo.dokumentTipId
+
+	insert into UcenikDokument
+		(
+			ucenikId, 
+			dokumentTipId, 
+			dokumentPath, 
+			[status]
+		)
+	select 
+		ucenikId, 
+		dokumentTipId, 
+		dokumentPath, 
+		[status]
+	from #UcenikDokument
+
+	Select 0 as ErrCode, 'OK' as ErrMessage
+end
+go
+
 if object_id('SinhronizeStudentsGroups') is not null
 drop proc dbo.SinhronizeStudentsGroups
 go
+-- SinhronizeStudentsGroups 1
 create proc dbo.SinhronizeStudentsGroups
 	@ClassId int
 as
 begin
 	
 	delete uo 
+	--select *  
 	from UcenikOcena uo
 	join Ucenik u on u.Id = uo.ucenikId
 	join SmerGodinaPredmet sgp on sgp.Id = uo.smerGodinaPredmetId
