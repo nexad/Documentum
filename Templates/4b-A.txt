@@ -1,0 +1,15 @@
+<root>
+  <_nazivskole>nazivskole</_nazivskole>
+  <_sediste>sediste</_sediste>
+  <_resenje>resenje</_resenje>
+  <_datum>datum</_datum>
+  <_delovodnibroj>delovodnibroj</_delovodnibroj>
+  <_maticnibroj>maticnibroj</_maticnibroj>
+  <_imeprezime>imeprezime</_imeprezime>
+  <_imeroditelja>imeroditelja</_imeroditelja>
+  <_datrodj>datrodj</_datrodj>
+  <_mestorodj>mestorodj</_mestorodj>
+  <_opstina>opstina</_opstina>
+  <_drzava>drzava</_drzava>
+  <_delbrojidat>delbrojidat</_delbrojidat>
+</root>
