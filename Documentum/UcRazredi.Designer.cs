@@ -242,6 +242,7 @@
             this.metroGridUcenici.Size = new System.Drawing.Size(600, 238);
             this.metroGridUcenici.TabIndex = 2;
             this.metroGridUcenici.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.MetroGridUcenici_CellContentDoubleClick);
+            this.metroGridUcenici.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.metroGridUcenici_CellFormatting);
             // 
             // metroPanel4
             // 
@@ -276,7 +277,7 @@
             this.mbPrint.Text = "Štampaj";
             this.mbPrint.UseSelectable = true;
             this.mbPrint.UseStyleColors = true;
-            this.mbPrint.Click += new System.EventHandler(this.mbPrint_Click);
+            this.mbPrint.Click += new System.EventHandler(this.MbPrint_Click);
             // 
             // mbGenerate
             // 
@@ -356,7 +357,7 @@
             this.mlRazredNaziv.AutoSize = true;
             this.mlRazredNaziv.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.mlRazredNaziv.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.mlRazredNaziv.Location = new System.Drawing.Point(17, 42);
+            this.mlRazredNaziv.Location = new System.Drawing.Point(0, 42);
             this.mlRazredNaziv.Name = "mlRazredNaziv";
             this.mlRazredNaziv.Size = new System.Drawing.Size(93, 25);
             this.mlRazredNaziv.TabIndex = 5;
@@ -368,7 +369,7 @@
             // 
             // 
             this.mtbImportFileName.CustomButton.Image = null;
-            this.mtbImportFileName.CustomButton.Location = new System.Drawing.Point(183, 1);
+            this.mtbImportFileName.CustomButton.Location = new System.Drawing.Point(200, 1);
             this.mtbImportFileName.CustomButton.Name = "";
             this.mtbImportFileName.CustomButton.Size = new System.Drawing.Size(21, 21);
             this.mtbImportFileName.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
@@ -376,7 +377,7 @@
             this.mtbImportFileName.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.mtbImportFileName.CustomButton.UseSelectable = true;
             this.mtbImportFileName.Lines = new string[0];
-            this.mtbImportFileName.Location = new System.Drawing.Point(17, 13);
+            this.mtbImportFileName.Location = new System.Drawing.Point(0, 13);
             this.mtbImportFileName.MaxLength = 32767;
             this.mtbImportFileName.Name = "mtbImportFileName";
             this.mtbImportFileName.PasswordChar = '\0';
@@ -387,7 +388,7 @@
             this.mtbImportFileName.SelectionStart = 0;
             this.mtbImportFileName.ShortcutsEnabled = true;
             this.mtbImportFileName.ShowButton = true;
-            this.mtbImportFileName.Size = new System.Drawing.Size(205, 23);
+            this.mtbImportFileName.Size = new System.Drawing.Size(222, 23);
             this.mtbImportFileName.TabIndex = 4;
             this.mtbImportFileName.UseSelectable = true;
             this.mtbImportFileName.WaterMark = "Izaberi file za import";

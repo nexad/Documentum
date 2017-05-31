@@ -104,7 +104,7 @@ namespace Documentum
                      
                     mlRazredNaziv.Text = razred.oznaka;
                     string oznaka = System.Text.RegularExpressions.Regex.Replace(razred.oznaka, @"[^\w\d]", string.Empty);
-                    mtbImportFileName.Text = DocumentumFactory.ResolveDirectoryPath("IMPORT_EXCEL_FOLDER") + oznaka+"-"+ DocumentumFactory.ReadConfigParam("IMPORT_FILE_NAME");
+                    mtbImportFileName.Text = String.Format(DocumentumFactory.ResolveDirectoryPath("IMPORT_EXCEL_FOLDER") + DocumentumFactory.ReadConfigParam("IMPORT_FILE_NAME"),oznaka);
                     
                     var ucenici = from Ucenik in context.Uceniks.Where(u => u.razredId == razredId)
                                   select new
@@ -115,13 +115,15 @@ namespace Documentum
                                       Ucenik.brojMaticneKnjige,
                                       Ucenik.imeRoditelja,
                                       Ucenik.datum_rodjenja,
-                                      Ucenik.mestoRodjenja,
-                                      Ucenik.opstina,
-                                      Ucenik.drzava
+                                      brojNekreiranih = Ucenik.UcenikDokuments.Where(d=> d.status == (int) StudentDocumentStatus.Nonexistent).Count(),
+                                      brojKreiranih = Ucenik.UcenikDokuments.Where(d => d.status == (int)StudentDocumentStatus.Created).Count(),
+                                      brojStampanih = Ucenik.UcenikDokuments.Where(d => d.status == (int)StudentDocumentStatus.Printed).Count(),
+
                                   };
                     metroGridUcenici.DataSource = ucenici.ToList();
                     if (ucenici.Count() > 0)
                         metroGridUcenici.Columns[0].Visible = false;
+
                 }
             }
         }
@@ -332,6 +334,12 @@ namespace Documentum
                 var result = context.Database
                     .SqlQuery<StandardExecutionResult>("SinhronizeStudentsSubjects @ClassId", classIdParameter)
                     .ToDictionary(t => t.ErrCode, t => t.ErrMessage);
+
+                var classDocsIdParameter = new SqlParameter("@ClassId", this.RazredId);
+                result = context.Database
+                    .SqlQuery<StandardExecutionResult>("SinhronizeStudentsDocuments @ClassId", classDocsIdParameter)
+                    .ToDictionary(t => t.ErrCode, t => t.ErrMessage);
+
                 context.SaveChanges();
             }
             progressForm.Close();
@@ -538,14 +546,16 @@ namespace Documentum
                                 progressForm.SetProgress(stepStatus, String.Format("Ucitavanje liste ocena iz excel dokumenta...{0}", studentsCount));
                             }
                         }
-                        
+                        context.SaveChanges();
+
                         var classIdParameter = new SqlParameter("@ClassId", this.RazredId);
 
                         var result = context.Database
                             .SqlQuery<StandardExecutionResult>("SinhronizeStudentsGroups @ClassId", classIdParameter)
                             .ToDictionary(t => t.ErrCode, t => t.ErrMessage);
-                           
-                        
+
+
+
                         context.SaveChanges();
                     }
                 }
@@ -645,8 +655,13 @@ namespace Documentum
 
             if (ucenikId == -1 || documentTipId == -1)
                 return;
-
-            string docOutputPath = DocumentumFactory.GenerateDocument(ucenikId, documentTipId, true);
+            Ucenik ucenik;
+            using (var context = new documentumEntities())
+            {
+                ucenik = context.Uceniks.SingleOrDefault(u => u.Id == ucenikId);
+            }
+            
+            string docOutputPath = DocumentumFactory.GenerateDocument(ucenik, documentTipId, true);
             if (File.Exists(docOutputPath))
             {
                 Microsoft.Office.Interop.Word.Application wordApp = new Microsoft.Office.Interop.Word.Application();
@@ -662,9 +677,16 @@ namespace Documentum
 
             using (var context = new documentumEntities())
             {
+                
+                int ucenikCount = context.Uceniks.Where(u => u.razredId == RazredId).Count();
+
+                ProgressForm progressForm = new ProgressForm();
+                progressForm.Step = (int) 100 / ucenikCount;
+                progressForm.Show();
+                
                 foreach (Ucenik ucenik in context.Uceniks.Where(u=> u.razredId == RazredId))
                 {
-                    string docOutputPath = DocumentumFactory.GenerateDocument(ucenik.Id, documentTipId, false);
+                    string docOutputPath = DocumentumFactory.GenerateDocument(ucenik, documentTipId, false);
                     UcenikDokument ucenikDokument = context.UcenikDokuments.SingleOrDefault(d => d.ucenikId == ucenik.Id && d.dokumentTipId == documentTipId);
                     if (ucenikDokument == null)
                     {
@@ -672,21 +694,73 @@ namespace Documentum
                         {
                             ucenikId = ucenik.Id,
                             dokumentTipId = documentTipId,
-                            dokumentPath = docOutputPath
+                            dokumentPath = docOutputPath,
+                            status = (int) StudentDocumentStatus.Created
                         };
                         context.UcenikDokuments.Add(ucenikDokument);
                     } else
                     {
                         ucenikDokument.dokumentPath = docOutputPath;
+                        ucenikDokument.status = (int)StudentDocumentStatus.Created;
                     }
+                    progressForm.StepProgress();
                 }
                 context.SaveChanges();
+                progressForm.Close();
             }
+            ReloadGridUceniciData();
         }
 
-        private void mbPrint_Click(object sender, EventArgs e)
+        private void MbPrint_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void metroGridUcenici_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (this.metroGridUcenici.Columns[e.ColumnIndex].Name == "brojNekreiranih")
+            {
+                if (e.Value != null)
+                {
+                    // Check for the string "pink" in the cell.
+                    int value = int.Parse(e.Value.ToString());
+                     
+                    if (value > 0)
+                    {
+                        e.CellStyle.BackColor = System.Drawing.Color.Red;
+                    }
+
+                }
+            } else 
+            if (this.metroGridUcenici.Columns[e.ColumnIndex].Name == "brojKreiranih")
+            {
+                if (e.Value != null)
+                {
+                    // Check for the string "pink" in the cell.
+                    int value = int.Parse(e.Value.ToString());
+
+                    if (value > 0)
+                    {
+                        e.CellStyle.BackColor = System.Drawing.Color.Yellow;
+                    }
+
+                }
+            }
+            else
+            if (this.metroGridUcenici.Columns[e.ColumnIndex].Name == "brojStampanih")
+            {
+                if (e.Value != null)
+                {
+                    // Check for the string "pink" in the cell.
+                    int value = int.Parse(e.Value.ToString());
+
+                    if (value > 0)
+                    {
+                        e.CellStyle.BackColor = System.Drawing.Color.Green;
+                    }
+
+                }
+            }
         }
     }
 

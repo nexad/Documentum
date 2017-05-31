@@ -36,12 +36,12 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
+            this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
+            this.mbPregled = new MetroFramework.Controls.MetroButton();
             this.metroGridDokumenta = new MetroFramework.Controls.MetroGrid();
             this.mlImePrezime = new MetroFramework.Controls.MetroLabel();
             this.metroPanel2 = new MetroFramework.Controls.MetroPanel();
             this.metroGridOcene = new MetroFramework.Controls.MetroGrid();
-            this.mbPregled = new MetroFramework.Controls.MetroButton();
-            this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.metroPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.metroGridDokumenta)).BeginInit();
             this.metroPanel2.SuspendLayout();
@@ -51,7 +51,7 @@
             // metroLabel1
             // 
             this.metroLabel1.AutoSize = true;
-            this.metroLabel1.Location = new System.Drawing.Point(14, 27);
+            this.metroLabel1.Location = new System.Drawing.Point(14, 21);
             this.metroLabel1.Name = "metroLabel1";
             this.metroLabel1.Size = new System.Drawing.Size(50, 19);
             this.metroLabel1.TabIndex = 0;
@@ -76,9 +76,33 @@
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel1.VerticalScrollbarSize = 10;
             // 
+            // metroLabel2
+            // 
+            this.metroLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.metroLabel2.AutoSize = true;
+            this.metroLabel2.Location = new System.Drawing.Point(277, 21);
+            this.metroLabel2.Name = "metroLabel2";
+            this.metroLabel2.Size = new System.Drawing.Size(76, 19);
+            this.metroLabel2.TabIndex = 5;
+            this.metroLabel2.Text = "Dokumenta";
+            // 
+            // mbPregled
+            // 
+            this.mbPregled.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.mbPregled.Location = new System.Drawing.Point(729, 21);
+            this.mbPregled.Name = "mbPregled";
+            this.mbPregled.Size = new System.Drawing.Size(75, 23);
+            this.mbPregled.Style = MetroFramework.MetroColorStyle.Orange;
+            this.mbPregled.TabIndex = 4;
+            this.mbPregled.Text = "Pregled";
+            this.mbPregled.UseSelectable = true;
+            this.mbPregled.UseStyleColors = true;
+            this.mbPregled.Click += new System.EventHandler(this.MbPregled_Click);
+            // 
             // metroGridDokumenta
             // 
             this.metroGridDokumenta.AllowUserToResizeRows = false;
+            this.metroGridDokumenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.metroGridDokumenta.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.metroGridDokumenta.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.metroGridDokumenta.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
@@ -103,7 +127,7 @@
             this.metroGridDokumenta.EnableHeadersVisualStyles = false;
             this.metroGridDokumenta.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.metroGridDokumenta.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.metroGridDokumenta.Location = new System.Drawing.Point(413, 21);
+            this.metroGridDokumenta.Location = new System.Drawing.Point(359, 21);
             this.metroGridDokumenta.Name = "metroGridDokumenta";
             this.metroGridDokumenta.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -116,7 +140,7 @@
             this.metroGridDokumenta.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.metroGridDokumenta.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.metroGridDokumenta.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.metroGridDokumenta.Size = new System.Drawing.Size(267, 122);
+            this.metroGridDokumenta.Size = new System.Drawing.Size(364, 122);
             this.metroGridDokumenta.TabIndex = 3;
             // 
             // mlImePrezime
@@ -124,7 +148,7 @@
             this.mlImePrezime.AutoSize = true;
             this.mlImePrezime.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.mlImePrezime.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.mlImePrezime.Location = new System.Drawing.Point(14, 67);
+            this.mlImePrezime.Location = new System.Drawing.Point(14, 64);
             this.mlImePrezime.Name = "mlImePrezime";
             this.mlImePrezime.Size = new System.Drawing.Size(127, 25);
             this.mlImePrezime.TabIndex = 2;
@@ -188,27 +212,6 @@
             this.metroGridOcene.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.metroGridOcene.Size = new System.Drawing.Size(851, 139);
             this.metroGridOcene.TabIndex = 2;
-            // 
-            // mbPregled
-            // 
-            this.mbPregled.Location = new System.Drawing.Point(729, 21);
-            this.mbPregled.Name = "mbPregled";
-            this.mbPregled.Size = new System.Drawing.Size(75, 23);
-            this.mbPregled.Style = MetroFramework.MetroColorStyle.Orange;
-            this.mbPregled.TabIndex = 4;
-            this.mbPregled.Text = "Pregled";
-            this.mbPregled.UseSelectable = true;
-            this.mbPregled.UseStyleColors = true;
-            this.mbPregled.Click += new System.EventHandler(this.mbPregled_Click);
-            // 
-            // metroLabel2
-            // 
-            this.metroLabel2.AutoSize = true;
-            this.metroLabel2.Location = new System.Drawing.Point(331, 27);
-            this.metroLabel2.Name = "metroLabel2";
-            this.metroLabel2.Size = new System.Drawing.Size(76, 19);
-            this.metroLabel2.TabIndex = 5;
-            this.metroLabel2.Text = "Dokumenta";
             // 
             // FormDetaljiUcenika
             // 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace Documentum
         private void FormDetaljiUcenika_Load(object sender, EventArgs e)
         {
             ReloadGridOcene();
+            ReloadGridDokumenta();
         }
 
         public void ReloadGridDokumenta()
@@ -33,15 +35,18 @@ namespace Documentum
 
             using (var context = new documentumEntities())
             {
-                
+
                 var dokumenta = from UcenikDokument in context.UcenikDokuments.Where(u => u.ucenikId == UcenikId)
-                            select new
-                            {
-                                UcenikDokument.Id,
-                                UcenikDokument.DokumentTip.naziv,
-                                UcenikDokument.dokumentPath
+                                select new
+                                {
+                                    UcenikDokument.Id,
+                                    UcenikDokument.DokumentTip.naziv,
+                                    UcenikDokument.dokumentPath,
+                                    Status = UcenikDokument.status
                             };
-                metroGridOcene.DataSource = dokumenta.OrderBy(o => o.naziv).ToList();
+                metroGridDokumenta.DataSource = dokumenta.OrderBy(o => o.naziv).ToList();
+                if (dokumenta.Count() > 0)
+                    metroGridDokumenta.Columns[0].Visible = false;
             }
         }
 
@@ -66,10 +71,16 @@ namespace Documentum
             }
         }
 
-        private void mbPregled_Click(object sender, EventArgs e)
+        private void MbPregled_Click(object sender, EventArgs e)
         {
             string documentPath = DocumentumFactory.GetSelectedGridCellValue(metroGridDokumenta, "dokumentPath").ToString();
             //TODO: Check if file exists
+            if (!File.Exists(documentPath))
+            {
+                MessageBox.Show(String.Format("Ne postoji fajl {0} ", documentPath), "Greska prilikom ucitavanja fajla",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             Microsoft.Office.Interop.Word.Application wordApp = new Microsoft.Office.Interop.Word.Application();
             wordApp.Visible = true;
             Microsoft.Office.Interop.Word.Document docPrint = wordApp.Documents.Open(documentPath);

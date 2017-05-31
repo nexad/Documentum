@@ -18,6 +18,7 @@ namespace Documentum
         public Nullable<int> ucenikId { get; set; }
         public Nullable<int> dokumentTipId { get; set; }
         public string dokumentPath { get; set; }
+        public Nullable<int> status { get; set; }
     
         public virtual DokumentTip DokumentTip { get; set; }
         public virtual Ucenik Ucenik { get; set; }

@@ -14,6 +14,7 @@ namespace Documentum
     {
         public int Progress { get; set; }
         public string Label { get; set; }
+        public int  Step { get; set; }
 
         public ProgressForm()
         {
@@ -29,6 +30,14 @@ namespace Documentum
             GetMlStatus().Text = Label;
             mpbProgress.Value = Progress;
             Text = Label;
+        }
+
+        public void StepProgress()
+        {
+            Progress += Step;
+            if (Progress > 100)
+                Progress = 100;
+            
         }
 
         private MetroFramework.Controls.MetroLabel GetMlStatus()
