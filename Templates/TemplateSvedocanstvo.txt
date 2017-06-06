@@ -4,6 +4,7 @@
   <_resenje>resenje</_resenje>
   <_datum>datum</_datum>
   <_delovodnibroj>delovodnibroj</_delovodnibroj>
+  <_maticnibroj>maticnibroj</_maticnibroj>
   <_imeprezime>imeprezime</_imeprezime>
   <_imeroditelja>imeroditelja</_imeroditelja>
   <_datrodj>datrodj</_datrodj>
@@ -17,45 +18,65 @@
   <_zakojiobrazovanjetraje>zakojiobrazovanjetraje</_zakojiobrazovanjetraje>
   <_uspeh>uspeh</_uspeh>
   <_predmet1>predmet1</_predmet1>
-  <_ocena1>ocena1</_ocena1>
+  <_ocena1>o1</_ocena1>
   <_napomena>napomena</_napomena>
   <_predmet2>predmet2</_predmet2>
-  <_ocena2>ocena2</_ocena2>
+  <_ocena2>o2</_ocena2>
   <_predmet3>predmet3</_predmet3>
-  <_ocena3>ocena3</_ocena3>
+  <_ocena3>o3</_ocena3>
   <_predmet4>predmet4</_predmet4>
-  <_ocena4>ocena4</_ocena4>
+  <_ocena4>o4</_ocena4>
   <_predmet5>predmet5</_predmet5>
-  <_ocena5>ocena5</_ocena5>
+  <_ocena5>o5</_ocena5>
   <_predmet6>predmet6</_predmet6>
-  <_ocena6>ocena6</_ocena6>
+  <_ocena6>o6</_ocena6>
   <_predmet7>predmet7</_predmet7>
-  <_ocena7>ocena7</_ocena7>
+  <_ocena7>o7</_ocena7>
   <_predmet8>predmet8</_predmet8>
-  <_ocena8>ocena8</_ocena8>
+  <_ocena8>o8</_ocena8>
   <_predmet9>predmet9</_predmet9>
-  <_ocena9>ocena9</_ocena9>
+  <_ocena9>o9</_ocena9>
   <_predmet10>predmet10</_predmet10>
-  <_ocena10>ocena10</_ocena10>
+  <_ocena10>o10</_ocena10>
   <_predmet11>predmet11</_predmet11>
-  <_ocena11>ocena11</_ocena11>
+  <_ocena11>o11</_ocena11>
   <_predmet12>predmet12</_predmet12>
-  <_ocena12>ocena12</_ocena12>
+  <_ocena12>o12</_ocena12>
   <_predmet13>predmet13</_predmet13>
-  <_ocena13>ocena13</_ocena13>
+  <_ocena13>o13</_ocena13>
   <_predmet14>predmet14</_predmet14>
-  <_ocena14>ocena14</_ocena14>
+  <_ocena14>o14</_ocena14>
   <_predmet15>predmet15</_predmet15>
-  <_ocena15>ocena15</_ocena15>
+  <_ocena15>o15</_ocena15>
   <_predmet16>predmet16</_predmet16>
-  <_ocena16>ocena16</_ocena16>
+  <_ocena16>o16</_ocena16>
   <_predmet17>predmet17</_predmet17>
-  <_ocena17>ocena17</_ocena17>
+  <_ocena17>o17</_ocena17>
   <_predmet18>predmet18</_predmet18>
-  <_ocena18>ocena18</_ocena18>
+  <_ocena18>o18</_ocena18>
   <_predmet19>predmet19</_predmet19>
-  <_ocena19>ocena19</_ocena19>
-  <_ocena20>ocena20</_ocena20>
+  <_ocena19>o19</_ocena19>
+  <_ocena20>o20</_ocena20>
   <_konuspeh>konuspeh</_konuspeh>
   <_slrazred>slrazred</_slrazred>
+  <_slovima1>sl1</_slovima1>
+  <_slovima2>sl2</_slovima2>
+  <_slovima3>sl3</_slovima3>
+  <_slovima4>sl4</_slovima4>
+  <_slovima5>sl5</_slovima5>
+  <_slovima6>sl6</_slovima6>
+  <_slovima7>sl7</_slovima7>
+  <_slovima8>sl8</_slovima8>
+  <_slovima9>sl9</_slovima9>
+  <_slovima10>sl10</_slovima10>
+  <_slovima11>sl11</_slovima11>
+  <_slovima12>sl12</_slovima12>
+  <_slovima13>sl13</_slovima13>
+  <_slovima14>sl14</_slovima14>
+  <_slovima15>sl15</_slovima15>
+  <_slovima16>sl16</_slovima16>
+  <_slovima17>sl17</_slovima17>
+  <_slovima18>sl18</_slovima18>
+  <_slovima19>sl19</_slovima19>
+  <_slovima20>sl20</_slovima20>
 </root>

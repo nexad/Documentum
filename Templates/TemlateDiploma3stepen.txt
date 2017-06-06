@@ -4,6 +4,7 @@
   <_resenje>resenje</_resenje>
   <_datum>datum</_datum>
   <_delevodnibroj>delevodnibroj</_delevodnibroj>
+  <_maticnibroj>maticnibroj</_maticnibroj>
   <_imeprezime>imeprezime</_imeprezime>
   <_imeroditelja>imeroditelja</_imeroditelja>
   <_datrodj>datrodj</_datrodj>

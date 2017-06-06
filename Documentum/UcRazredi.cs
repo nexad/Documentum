@@ -15,6 +15,8 @@ using System.Threading;
 using System.Collections;
 using System.Xml.Linq;
 
+using System.Configuration;
+
 namespace Documentum
 {
     public partial class UcRazredi : MetroFramework.Controls.MetroUserControl
@@ -110,11 +112,13 @@ namespace Documentum
                                   select new
                                   {
                                       Ucenik.Id,
+                                      Ucenik.redniBroj,
                                       Ucenik.prezime,
                                       Ucenik.ime,
                                       Ucenik.brojMaticneKnjige,
                                       Ucenik.imeRoditelja,
                                       Ucenik.datum_rodjenja,
+                                      neuneteOcene = Ucenik.UcenikOcenas.Where(uo => uo.ocena == -1).Count(),
                                       brojNekreiranih = Ucenik.UcenikDokuments.Where(d=> d.status == (int) StudentDocumentStatus.Nonexistent).Count(),
                                       brojKreiranih = Ucenik.UcenikDokuments.Where(d => d.status == (int)StudentDocumentStatus.Created).Count(),
                                       brojStampanih = Ucenik.UcenikDokuments.Where(d => d.status == (int)StudentDocumentStatus.Printed).Count(),
@@ -275,7 +279,7 @@ namespace Documentum
                                         break;
                                     case "G":
                                         datumRodjenja = datumRodjenja + cellValue;
-                                        DateTime myDate = DateTime.ParseExact(datumRodjenja, "dd.mm.yyyy",
+                                        DateTime myDate = DateTime.ParseExact(datumRodjenja, "dd.MM.yyyy",
                                            System.Globalization.CultureInfo.InvariantCulture);
                                         ucenik.datum_rodjenja = myDate;
                                         break;
@@ -286,9 +290,9 @@ namespace Documentum
                                         ucenik.opstina = cellValue;
                                         break;
                                     case "J":
+                                        ucenik.drzava = cellValue;
                                         break;
                                     case "K":
-                                        ucenik.drzava = cellValue;
                                         break;
                                     case "L":
                                         ucenik.kojiput = cellValue;
@@ -327,21 +331,9 @@ namespace Documentum
             }
             Thread.Sleep(1000);
             progressForm.SetProgress(stepStatus, "Azuriranje liste predmeta za ucenike...");
-            using (var context = new documentumEntities())
-            {
-                var classIdParameter = new SqlParameter("@ClassId", this.RazredId);
 
-                var result = context.Database
-                    .SqlQuery<StandardExecutionResult>("SinhronizeStudentsSubjects @ClassId", classIdParameter)
-                    .ToDictionary(t => t.ErrCode, t => t.ErrMessage);
+            Sync();
 
-                var classDocsIdParameter = new SqlParameter("@ClassId", this.RazredId);
-                result = context.Database
-                    .SqlQuery<StandardExecutionResult>("SinhronizeStudentsDocuments @ClassId", classDocsIdParameter)
-                    .ToDictionary(t => t.ErrCode, t => t.ErrMessage);
-
-                context.SaveChanges();
-            }
             progressForm.Close();
         }
 
@@ -586,8 +578,7 @@ namespace Documentum
 
         private void MetroGridRazredi_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            ReloadGridUceniciData();
-            ReloadGridDokumenta();
+            
         }
 
         private void MetroGridUcenici_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -609,6 +600,7 @@ namespace Documentum
         {
             string fileName = mtbImportFileName.Text.ToString();
             ImportFileOcene(fileName);
+            ReloadGridUceniciData();
         }
 
         private void ReloadGridDokumenta()
@@ -636,11 +628,39 @@ namespace Documentum
                                         DokumentTipId = SmerGodinaDokument.dokumentTipId,
                                         SmerGodinaDokument.DokumentTip.naziv,
                                         SmerGodinaDokument.DokumentTip.templatePath,
-                                        SmerGodinaDokument.DokumentTip.outputPath
+                                        SmerGodinaDokument.DokumentTip.outputPath,
+                                        brojNekreiranih = SmerGodinaDokument.DokumentTip.UcenikDokuments.Where(u => u.Ucenik.razredId == RazredId && u.status == 0).Count(),
+                                        brojKreiranih = SmerGodinaDokument.DokumentTip.UcenikDokuments.Where(u => u.Ucenik.razredId == RazredId && u.status == 1).Count(),
+                                        brojStampanih = SmerGodinaDokument.DokumentTip.UcenikDokuments.Where(u => u.Ucenik.razredId == RazredId && u.status == 2).Count()
                                     };
                     metroGridDokumenta.DataSource = dokumenta.ToList();
                     if (dokumenta.Count() > 0)
+                    {
                         metroGridDokumenta.Columns[0].Visible = false;
+                        using (var c = metroGridDokumenta.Columns["brojNekreiranih"])
+                        {
+                            c.HeaderText = "Broj nekreiranih";
+                            c.HeaderCell.Style.WrapMode = DataGridViewTriState.True;
+                          
+                        }
+
+                        using (var c = metroGridDokumenta.Columns["brojKreiranih"])
+                        {
+                            c.HeaderText = "Broj kreiranih";
+                            c.HeaderCell.Style.WrapMode = DataGridViewTriState.True;
+                           
+                        }
+
+                        using (var c = metroGridDokumenta.Columns["brojStampanih"])
+                        {
+                            c.HeaderText = "Broj stampanih";
+                            c.HeaderCell.Style.WrapMode = DataGridViewTriState.True;
+                           
+                        }
+
+                    }
+                        
+
                 }
             }
 
@@ -678,13 +698,13 @@ namespace Documentum
             using (var context = new documentumEntities())
             {
                 
-                int ucenikCount = context.Uceniks.Where(u => u.razredId == RazredId).Count();
+                int ucenikCount = context.Uceniks.Where(u => u.razredId == RazredId && u.UcenikOcenas.Where(uo => uo.ocena == -1).Count() == 0).Count();
 
                 ProgressForm progressForm = new ProgressForm();
                 progressForm.Step = (int) 100 / ucenikCount;
                 progressForm.Show();
                 
-                foreach (Ucenik ucenik in context.Uceniks.Where(u=> u.razredId == RazredId))
+                foreach (Ucenik ucenik in context.Uceniks.Where(u=> u.razredId == RazredId && u.UcenikOcenas.Where(uo => uo.ocena == -1).Count() == 0))
                 {
                     string docOutputPath = DocumentumFactory.GenerateDocument(ucenik, documentTipId, false);
                     UcenikDokument ucenikDokument = context.UcenikDokuments.SingleOrDefault(d => d.ucenikId == ucenik.Id && d.dokumentTipId == documentTipId);
@@ -713,7 +733,60 @@ namespace Documentum
 
         private void MbPrint_Click(object sender, EventArgs e)
         {
+            int documentTipId = DocumentumFactory.GetSelectedGridId(metroGridDokumenta, "DokumentTipId");
 
+            using (var context = new documentumEntities())
+            {
+
+                int ucenikCount = context.UcenikDokuments.Where(ud => ud.dokumentTipId == documentTipId && ud.status == (int)StudentDocumentStatus.Created && ud.Ucenik.razredId == RazredId).Count();
+
+                if (ucenikCount == 0)
+                {
+                    MessageBox.Show("Ne postoje dokumenta za stampu u odgovarajucem statusu!", "Greska prilikom stampanja",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                ProgressForm progressForm = new ProgressForm();
+                progressForm.Step = (int)100 / ucenikCount;
+                progressForm.Show();
+
+                Microsoft.Office.Interop.Word.Application wordApp = new Microsoft.Office.Interop.Word.Application();
+
+                foreach (UcenikDokument ucenikDokument in context.UcenikDokuments.Where(ud => ud.dokumentTipId == documentTipId && ud.status == (int)StudentDocumentStatus.Created && ud.Ucenik.razredId == RazredId))
+                {
+                    //TODO:print
+
+                    if (File.Exists(ucenikDokument.dokumentPath))
+                    {
+                        
+                        wordApp.Visible = false;
+                        Microsoft.Office.Interop.Word.Document docPrint = wordApp.Documents.Open(ucenikDokument.dokumentPath);
+
+                        object oMissing = System.Reflection.Missing.Value;
+                         
+                        wordApp.ActiveDocument.PrintOut();
+                        docPrint.Close(SaveChanges: false);
+
+                        docPrint = null;
+                        
+                    }
+
+                    ucenikDokument.status = (int)StudentDocumentStatus.Printed;
+                    progressForm.StepProgress();
+                }
+                
+
+                context.SaveChanges();
+                progressForm.Close();
+
+                // <EDIT to include Jason's suggestion>
+                ((Microsoft.Office.Interop.Word._Application)wordApp).Quit(SaveChanges: false);
+                // </EDIT>
+
+                // Original: wordApp.Quit(SaveChanges: false);
+                wordApp = null;
+            }
+            ReloadGridUceniciData();
         }
 
         private void metroGridUcenici_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -761,6 +834,105 @@ namespace Documentum
 
                 }
             }
+            else
+            if (this.metroGridUcenici.Columns[e.ColumnIndex].Name == "neuneteOcene")
+            {
+                if (e.Value != null)
+                {
+                    // Check for the string "pink" in the cell.
+                    int value = int.Parse(e.Value.ToString());
+
+                    if (value > 0)
+                    {
+                        e.CellStyle.BackColor = System.Drawing.Color.Red;
+                    }
+
+                }
+            }
+            
+        }
+
+        private void metroGridDokumenta_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (metroGridDokumenta.Columns[e.ColumnIndex].Name == "brojNekreiranih")
+            {
+                if (e.Value != null)
+                {
+                    // Check for the string "pink" in the cell.
+                    int value = int.Parse(e.Value.ToString());
+
+                    if (value > 0)
+                    {
+                        e.CellStyle.BackColor = System.Drawing.Color.Red;
+                    }
+
+                }
+            }
+            else
+            if (metroGridDokumenta.Columns[e.ColumnIndex].Name == "brojKreiranih")
+            {
+                if (e.Value != null)
+                {
+                    // Check for the string "pink" in the cell.
+                    int value = int.Parse(e.Value.ToString());
+
+                    if (value > 0)
+                    {
+                        e.CellStyle.BackColor = System.Drawing.Color.Yellow;
+                    }
+
+                }
+            }
+            else
+            if (metroGridDokumenta.Columns[e.ColumnIndex].Name == "brojStampanih")
+            {
+                if (e.Value != null)
+                {
+                    // Check for the string "pink" in the cell.
+                    int value = int.Parse(e.Value.ToString());
+
+                    if (value > 0)
+                    {
+                        e.CellStyle.BackColor = System.Drawing.Color.Green;
+                    }
+
+                }
+            }
+        }
+
+        private void mbSync_Click(object sender, EventArgs e)
+        {
+            Sync();
+        }
+
+        private void Sync()
+        {
+            using (var context = new documentumEntities())
+            {
+                var classIdParameter = new SqlParameter("@ClassId", this.RazredId);
+
+                var result = context.Database
+                    .SqlQuery<StandardExecutionResult>("SinhronizeStudentsSubjects @ClassId", classIdParameter)
+                    .ToDictionary(t => t.ErrCode, t => t.ErrMessage);
+
+                var classDocsIdParameter = new SqlParameter("@ClassId", this.RazredId);
+                result = context.Database
+                    .SqlQuery<StandardExecutionResult>("SinhronizeStudentsDocuments @ClassId", classDocsIdParameter)
+                    .ToDictionary(t => t.ErrCode, t => t.ErrMessage);
+
+                var classBookmarksIdParameter = new SqlParameter("@ClassId", this.RazredId);
+                result = context.Database
+                    .SqlQuery<StandardExecutionResult>("SinhronizeStudentsBookmarks @ClassId", classBookmarksIdParameter)
+                    .ToDictionary(t => t.ErrCode, t => t.ErrMessage);
+
+                context.SaveChanges();
+            }
+        }
+
+        private void metroGridRazredi_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            ReloadGridUceniciData();
+            ReloadGridDokumenta();
         }
     }
 

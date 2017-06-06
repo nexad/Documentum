@@ -17,7 +17,12 @@ namespace Documentum
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             DocumentumFactory.InitializeApplication();
-            Application.Run(new FormMain());
+            FormLogin login = new FormLogin();
+            if (login.ShowDialog() == DialogResult.OK)
+            {
+                Application.Run(new FormMain());
+            }
+            
         }
     }
 }

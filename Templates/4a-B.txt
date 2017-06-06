@@ -16,7 +16,6 @@
   <_uspehprviraz1>uspehprviraz1</_uspehprviraz1>
   <_uspehdrugiraz1>uspehdrugiraz1</_uspehdrugiraz1>
   <_uspehtreciraz1>uspehtreciraz1</_uspehtreciraz1>
-  <_programbr>programbr</_programbr>
   <_uspehcetvrtiraz1>uspehcetvrtiraz1</_uspehcetvrtiraz1>
   <_predmet1>predmet1</_predmet1>
   <_prviraz1>prviraz1</_prviraz1>

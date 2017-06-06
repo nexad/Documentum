@@ -26,8 +26,8 @@ namespace Documentum.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.\\SQLEXPRESS;Initial Catalog=documentum;Persist Security Info=True;Us" +
-            "er ID=documentum;Password=Skola1234!")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=documentum;Persist Security Info=True;User ID=docum" +
+            "entum;Password=Skola1234!")]
         public string documentumConnectionString {
             get {
                 return ((string)(this["documentumConnectionString"]));

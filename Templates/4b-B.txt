@@ -24,16 +24,16 @@
   <_uspeh5>uspeh5</_uspeh5>
   <_bodovi>bodovi</_bodovi>
   <_konuspeh>konuspeh</_konuspeh>
-<_nazivtakmicenjaidiscipline1>nazivtakmicenjaidiscipline1</_nazivtakmicenjaidiscipline1>
+  <_nazivtakmicenjaidiscipline1>nazivtakmicenjaidiscipline1</_nazivtakmicenjaidiscipline1>
   <_mesto1>mesto1</_mesto1>
   <_datum1>datum1</_datum1>
-<_nazivtakmicenjaidiscipline2>nazivtakmicenjaidiscipline2</_nazivtakmicenjaidiscipline2>
+  <_nazivtakmicenjaidiscipline2>nazivtakmicenjaidiscipline2</_nazivtakmicenjaidiscipline2>
   <_mesto2>mesto2</_mesto2>
   <_datum2>datum2</_datum2>
-<_nazivtakmicenjaidiscipline3>nazivtakmicenjaidiscipline3</_nazivtakmicenjaidiscipline3>
+  <_nazivtakmicenjaidiscipline3>nazivtakmicenjaidiscipline3</_nazivtakmicenjaidiscipline3>
   <_mesto3>mesto3</_mesto3>
   <_datum3>datum3</_datum3>
-<_nazivtakmicenjaidiscipline4>nazivtakmicenjaidiscipline4</_nazivtakmicenjaidiscipline4>
+  <_nazivtakmicenjaidiscipline4>nazivtakmicenjaidiscipline4</_nazivtakmicenjaidiscipline4>
   <_mesto4>mesto4</_mesto4>
   <_datum4>datum4</_datum4>
 </root>

@@ -30,8 +30,8 @@
         {
             this.metroPanelMain = new MetroFramework.Controls.MetroPanel();
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
-            this.mbMain = new MetroFramework.Controls.MetroButton();
             this.metroButton2 = new MetroFramework.Controls.MetroButton();
+            this.mbMain = new MetroFramework.Controls.MetroButton();
             this.metroPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,30 +55,17 @@
             // 
             this.metroPanel1.Controls.Add(this.metroButton2);
             this.metroPanel1.Controls.Add(this.mbMain);
+            this.metroPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.metroPanel1.HorizontalScrollbarBarColor = true;
             this.metroPanel1.HorizontalScrollbarHighlightOnWheel = false;
             this.metroPanel1.HorizontalScrollbarSize = 10;
-            this.metroPanel1.Location = new System.Drawing.Point(23, 63);
+            this.metroPanel1.Location = new System.Drawing.Point(20, 60);
             this.metroPanel1.Name = "metroPanel1";
-            this.metroPanel1.Size = new System.Drawing.Size(622, 56);
+            this.metroPanel1.Size = new System.Drawing.Size(628, 56);
             this.metroPanel1.TabIndex = 3;
             this.metroPanel1.VerticalScrollbarBarColor = true;
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel1.VerticalScrollbarSize = 10;
-            // 
-            // mbMain
-            // 
-            this.mbMain.BackColor = System.Drawing.Color.SkyBlue;
-            this.mbMain.Location = new System.Drawing.Point(3, 3);
-            this.mbMain.Name = "mbMain";
-            this.mbMain.Size = new System.Drawing.Size(88, 35);
-            this.mbMain.Style = MetroFramework.MetroColorStyle.Orange;
-            this.mbMain.TabIndex = 2;
-            this.mbMain.Text = "Početna";
-            this.mbMain.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.mbMain.UseSelectable = true;
-            this.mbMain.UseStyleColors = true;
-            this.mbMain.Click += new System.EventHandler(this.mbMain_Click);
             // 
             // metroButton2
             // 
@@ -93,6 +80,20 @@
             this.metroButton2.UseSelectable = true;
             this.metroButton2.UseStyleColors = true;
             this.metroButton2.Click += new System.EventHandler(this.metroButton2_Click);
+            // 
+            // mbMain
+            // 
+            this.mbMain.BackColor = System.Drawing.Color.SkyBlue;
+            this.mbMain.Location = new System.Drawing.Point(3, 3);
+            this.mbMain.Name = "mbMain";
+            this.mbMain.Size = new System.Drawing.Size(88, 35);
+            this.mbMain.Style = MetroFramework.MetroColorStyle.Orange;
+            this.mbMain.TabIndex = 2;
+            this.mbMain.Text = "Početna";
+            this.mbMain.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.mbMain.UseSelectable = true;
+            this.mbMain.UseStyleColors = true;
+            this.mbMain.Click += new System.EventHandler(this.mbMain_Click);
             // 
             // FormMain
             // 

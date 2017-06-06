@@ -12,7 +12,8 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="dokumentTipId" Type="int" />
           <Property Name="bookmarkName" Type="varchar" MaxLength="200" />
-          <Property Name="dataField" Type="varchar" MaxLength="200" />
+          <Property Name="bookmarkTitle" Type="varchar" MaxLength="200" />
+          <Property Name="format" Type="varchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="Config">
           <Key>
@@ -129,6 +130,15 @@
           <Property Name="kojiput" Type="varchar" MaxLength="50" />
           <Property Name="opstina" Type="varchar" MaxLength="50" />
           <Property Name="drzava" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UcenikBookmark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bookmarkId" Type="int" />
+          <Property Name="value" Type="varchar" MaxLength="1000" />
+          <Property Name="ucenikDokumentId" Type="int" />
         </EntityType>
         <EntityType Name="UcenikDokument">
           <Key>
@@ -278,6 +288,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UcenikBookmark_Bookmarks">
+          <End Role="Bookmarks" Type="Self.Bookmarks" Multiplicity="0..1" />
+          <End Role="UcenikBookmark" Type="Self.UcenikBookmark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bookmarks">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UcenikBookmark">
+              <PropertyRef Name="bookmarkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UcenikBookmark_UcenikDokument">
+          <End Role="UcenikDokument" Type="Self.UcenikDokument" Multiplicity="0..1" />
+          <End Role="UcenikBookmark" Type="Self.UcenikBookmark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UcenikDokument">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UcenikBookmark">
+              <PropertyRef Name="ucenikDokumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UcenikDokument_DokumentTip">
           <End Role="DokumentTip" Type="Self.DokumentTip" Multiplicity="0..1" />
           <End Role="UcenikDokument" Type="Self.UcenikDokument" Multiplicity="*" />
@@ -364,6 +398,7 @@
           <EntitySet Name="SmerGodinaPredmet" EntityType="Self.SmerGodinaPredmet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ucenik" EntityType="Self.Ucenik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UcenikBookmark" EntityType="Self.UcenikBookmark" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UcenikDokument" EntityType="Self.UcenikDokument" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UcenikGrupa" EntityType="Self.UcenikGrupa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UcenikOcena" EntityType="Self.UcenikOcena" Schema="dbo" store:Type="Tables" />
@@ -407,6 +442,14 @@
             <End Role="Razred" EntitySet="Razred" />
             <End Role="Ucenik" EntitySet="Ucenik" />
           </AssociationSet>
+          <AssociationSet Name="FK_UcenikBookmark_Bookmarks" Association="Self.FK_UcenikBookmark_Bookmarks">
+            <End Role="Bookmarks" EntitySet="Bookmarks" />
+            <End Role="UcenikBookmark" EntitySet="UcenikBookmark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UcenikBookmark_UcenikDokument" Association="Self.FK_UcenikBookmark_UcenikDokument">
+            <End Role="UcenikDokument" EntitySet="UcenikDokument" />
+            <End Role="UcenikBookmark" EntitySet="UcenikBookmark" />
+          </AssociationSet>
           <AssociationSet Name="FK_UcenikDokument_DokumentTip" Association="Self.FK_UcenikDokument_DokumentTip">
             <End Role="DokumentTip" EntitySet="DokumentTip" />
             <End Role="UcenikDokument" EntitySet="UcenikDokument" />
@@ -443,8 +486,10 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="dokumentTipId" Type="Int32" />
           <Property Name="bookmarkName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="dataField" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DokumentTip" Relationship="documentumModel.FK_Bookmarks_DokumentTip" FromRole="Bookmark" ToRole="DokumentTip" />
+          <NavigationProperty Name="UcenikBookmarks" Relationship="documentumModel.FK_UcenikBookmark_Bookmarks" FromRole="Bookmark" ToRole="UcenikBookmark" />
+          <Property Name="bookmarkTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="format" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Config">
           <Key>
@@ -588,6 +633,7 @@
           <NavigationProperty Name="DokumentTip" Relationship="documentumModel.FK_UcenikDokument_DokumentTip" FromRole="UcenikDokument" ToRole="DokumentTip" />
           <NavigationProperty Name="Ucenik" Relationship="documentumModel.FK_UcenikDokument_Ucenik" FromRole="UcenikDokument" ToRole="Ucenik" />
           <Property Name="status" Type="Int32" />
+          <NavigationProperty Name="UcenikBookmarks" Relationship="documentumModel.FK_UcenikBookmark_UcenikDokument" FromRole="UcenikDokument" ToRole="UcenikBookmark" />
         </EntityType>
         <EntityType Name="UcenikGrupa">
           <Key>
@@ -691,6 +737,15 @@
           <AssociationSet Name="FK_UcenikOcena_SmerGodinaPredmet" Association="documentumModel.FK_UcenikOcena_SmerGodinaPredmet">
             <End Role="SmerGodinaPredmet" EntitySet="SmerGodinaPredmets" />
             <End Role="UcenikOcena" EntitySet="UcenikOcenas" />
+          </AssociationSet>
+          <EntitySet Name="UcenikBookmarks" EntityType="documentumModel.UcenikBookmark" />
+          <AssociationSet Name="FK_UcenikBookmark_Bookmarks" Association="documentumModel.FK_UcenikBookmark_Bookmarks">
+            <End Role="Bookmark" EntitySet="Bookmarks" />
+            <End Role="UcenikBookmark" EntitySet="UcenikBookmarks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UcenikBookmark_UcenikDokument" Association="documentumModel.FK_UcenikBookmark_UcenikDokument">
+            <End Role="UcenikDokument" EntitySet="UcenikDokuments" />
+            <End Role="UcenikBookmark" EntitySet="UcenikBookmarks" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="sysdiagram">
@@ -895,6 +950,41 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="UcenikBookmark">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bookmarkId" Type="Int32" />
+          <Property Name="value" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="ucenikDokumentId" Type="Int32" />
+          <NavigationProperty Name="Bookmark" Relationship="documentumModel.FK_UcenikBookmark_Bookmarks" FromRole="UcenikBookmark" ToRole="Bookmark" />
+          <NavigationProperty Name="UcenikDokument" Relationship="documentumModel.FK_UcenikBookmark_UcenikDokument" FromRole="UcenikBookmark" ToRole="UcenikDokument" />
+        </EntityType>
+        <Association Name="FK_UcenikBookmark_Bookmarks">
+          <End Type="documentumModel.Bookmark" Role="Bookmark" Multiplicity="0..1" />
+          <End Type="documentumModel.UcenikBookmark" Role="UcenikBookmark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bookmark">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UcenikBookmark">
+              <PropertyRef Name="bookmarkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UcenikBookmark_UcenikDokument">
+          <End Type="documentumModel.UcenikDokument" Role="UcenikDokument" Multiplicity="0..1" />
+          <End Type="documentumModel.UcenikBookmark" Role="UcenikBookmark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UcenikDokument">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UcenikBookmark">
+              <PropertyRef Name="ucenikDokumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -904,10 +994,11 @@
           <EntitySetMapping Name="Bookmarks">
             <EntityTypeMapping TypeName="documentumModel.Bookmark">
               <MappingFragment StoreEntitySet="Bookmarks">
+                <ScalarProperty Name="format" ColumnName="format" />
+                <ScalarProperty Name="bookmarkTitle" ColumnName="bookmarkTitle" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="dokumentTipId" ColumnName="dokumentTipId" />
                 <ScalarProperty Name="bookmarkName" ColumnName="bookmarkName" />
-                <ScalarProperty Name="dataField" ColumnName="dataField" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1067,6 +1158,16 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UcenikBookmarks">
+            <EntityTypeMapping TypeName="documentumModel.UcenikBookmark">
+              <MappingFragment StoreEntitySet="UcenikBookmark">
+                <ScalarProperty Name="ucenikDokumentId" ColumnName="ucenikDokumentId" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="bookmarkId" ColumnName="bookmarkId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

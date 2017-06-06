@@ -41,5 +41,6 @@ namespace Documentum
         public virtual DbSet<UcenikGrupa> UcenikGrupas { get; set; }
         public virtual DbSet<UcenikOcena> UcenikOcenas { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<UcenikBookmark> UcenikBookmarks { get; set; }
     }
 }

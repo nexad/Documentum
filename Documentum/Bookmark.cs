@@ -14,11 +14,20 @@ namespace Documentum
     
     public partial class Bookmark
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Bookmark()
+        {
+            this.UcenikBookmarks = new HashSet<UcenikBookmark>();
+        }
+    
         public int Id { get; set; }
         public Nullable<int> dokumentTipId { get; set; }
         public string bookmarkName { get; set; }
-        public string dataField { get; set; }
+        public string bookmarkTitle { get; set; }
+        public string format { get; set; }
     
         public virtual DokumentTip DokumentTip { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UcenikBookmark> UcenikBookmarks { get; set; }
     }
 }

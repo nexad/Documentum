@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
+using System.Configuration;
+
 namespace Documentum
 {
 
@@ -18,8 +20,12 @@ namespace Documentum
     {
         public static IDictionary marks = new Dictionary<int, string>() { {1, "Недовољан" }, {2, "Довољан"}, {3, "Добар"}, {4, "Врло добар"}, {5, "Одличан"}};
 
+        public static Nastavnik login;
+        
         public static void InitializeApplication()
         {
+            
+
            
             Directory.CreateDirectory(ResolveDirectoryPath("TEMPLATE_FOLDER"));
                 
@@ -142,7 +148,15 @@ namespace Documentum
             }
             if (selectedRow == null)
                 return "";
-            var selected = selectedRow.Cells[field].Value;
+            var selected = "";
+            try
+            {
+                selected = selectedRow.Cells[field].Value.ToString();
+            } catch (Exception ex)
+            {
+                selected = "";
+            }
+            
             return selected;
         }
     }

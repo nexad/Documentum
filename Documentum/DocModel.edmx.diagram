@@ -38,6 +38,9 @@
         <AssociationConnector Association="documentumModel.FK_UcenikGrupa_Ucenik" />
         <AssociationConnector Association="documentumModel.FK_UcenikOcena_Ucenik" />
         <AssociationConnector Association="documentumModel.FK_UcenikOcena_SmerGodinaPredmet" />
+        <EntityTypeShape EntityType="documentumModel.UcenikBookmark" Width="1.5" PointX="11" PointY="0.75" />
+        <AssociationConnector Association="documentumModel.FK_UcenikBookmark_Bookmarks" />
+        <AssociationConnector Association="documentumModel.FK_UcenikBookmark_UcenikDokument" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
