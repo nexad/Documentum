@@ -52,6 +52,7 @@
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.mcbSmer = new MetroFramework.Controls.MetroComboBox();
             this.metroPanel2 = new MetroFramework.Controls.MetroPanel();
+            this.metroLabel8 = new MetroFramework.Controls.MetroLabel();
             this.mtbFormat = new MetroFramework.Controls.MetroTextBox();
             this.mbDeleteBookmark = new MetroFramework.Controls.MetroButton();
             this.metroLabel7 = new MetroFramework.Controls.MetroLabel();
@@ -62,7 +63,6 @@
             this.metroGridBookmarks = new MetroFramework.Controls.MetroGrid();
             this.metroGridDokumenta = new MetroFramework.Controls.MetroGrid();
             this.metroGridPredmeti = new MetroFramework.Controls.MetroGrid();
-            this.metroLabel8 = new MetroFramework.Controls.MetroLabel();
             this.metroPanel1.SuspendLayout();
             this.metroPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.metroGridBookmarks)).BeginInit();
@@ -272,6 +272,15 @@
             this.metroPanel2.VerticalScrollbarHighlightOnWheel = false;
             this.metroPanel2.VerticalScrollbarSize = 10;
             // 
+            // metroLabel8
+            // 
+            this.metroLabel8.AutoSize = true;
+            this.metroLabel8.Location = new System.Drawing.Point(948, 89);
+            this.metroLabel8.Name = "metroLabel8";
+            this.metroLabel8.Size = new System.Drawing.Size(52, 19);
+            this.metroLabel8.TabIndex = 12;
+            this.metroLabel8.Text = "Format";
+            // 
             // mtbFormat
             // 
             // 
@@ -403,6 +412,8 @@
             // metroGridBookmarks
             // 
             this.metroGridBookmarks.AllowUserToResizeRows = false;
+            this.metroGridBookmarks.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.metroGridBookmarks.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.metroGridBookmarks.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.metroGridBookmarks.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
@@ -424,7 +435,6 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.metroGridBookmarks.DefaultCellStyle = dataGridViewCellStyle2;
-            this.metroGridBookmarks.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.metroGridBookmarks.EnableHeadersVisualStyles = false;
             this.metroGridBookmarks.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.metroGridBookmarks.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
@@ -536,15 +546,6 @@
             this.metroGridPredmeti.Size = new System.Drawing.Size(438, 479);
             this.metroGridPredmeti.TabIndex = 2;
             this.metroGridPredmeti.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.metroGridPredmeti_RowEnter);
-            // 
-            // metroLabel8
-            // 
-            this.metroLabel8.AutoSize = true;
-            this.metroLabel8.Location = new System.Drawing.Point(948, 89);
-            this.metroLabel8.Name = "metroLabel8";
-            this.metroLabel8.Size = new System.Drawing.Size(52, 19);
-            this.metroLabel8.TabIndex = 12;
-            this.metroLabel8.Text = "Format";
             // 
             // UcPlanProgram
             // 

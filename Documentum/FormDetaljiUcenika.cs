@@ -14,6 +14,7 @@ namespace Documentum
     public partial class FormDetaljiUcenika : MetroFramework.Forms.MetroForm
     {
         private int ucenikId;
+        private Ucenik selectedUcenik;
 
         public FormDetaljiUcenika()
         {
@@ -21,6 +22,8 @@ namespace Documentum
         }
 
         public int UcenikId { get => ucenikId; set => ucenikId = value; }
+
+        public Ucenik SelectedUcenik { get => selectedUcenik; set => selectedUcenik = value; }
 
         private void FormDetaljiUcenika_Load(object sender, EventArgs e)
         {
@@ -34,6 +37,23 @@ namespace Documentum
             ReloadGridOcene();
             ReloadGridDokumenta();
             ReloadGridUcenikBookmarks();
+            ReloadDetaljeUcenika();
+        }
+
+      
+        private void ReloadDetaljeUcenika()
+        {
+            mlImePrezime.Text = selectedUcenik.prezime + " " + selectedUcenik.ime;
+            mtbIme.Text = selectedUcenik.ime;
+            mtbPrezime.Text = selectedUcenik.prezime;
+            mdtDatmRodj.Value = (DateTime) selectedUcenik.datum_rodjenja;
+            mtbMaticniBroj.Text = selectedUcenik.brojMaticneKnjige;
+            mtbImeRoditelja.Text = selectedUcenik.imeRoditelja;
+            mtbMestoRodjenja.Text = selectedUcenik.mestoRodjenja;
+            mtbDelovodniBroj.Text = selectedUcenik.delovodniBroj;
+            mtbPut.Text = selectedUcenik.kojiput;
+            mtbOpsitna.Text = selectedUcenik.opstina;
+            mtbDrzava.Text = selectedUcenik.drzava;
         }
 
         public void ReloadGridDokumenta()
@@ -66,6 +86,8 @@ namespace Documentum
             using (var context = new documentumEntities())
             {
                 Ucenik ucenik = context.Uceniks.SingleOrDefault(u => u.Id == UcenikId);
+
+                selectedUcenik = ucenik;
 
                 mlImePrezime.Text = ucenik.prezime +" "+ucenik.ime;
 
@@ -154,11 +176,26 @@ namespace Documentum
             {
                 using (var context = new documentumEntities())
                 {
-                    UcenikOcena ucenikOcena = context.UcenikOcenas.SingleOrDefault(u => u.Id == ucenikOcenaId);
-                    ucenikOcena.SmerGodinaPredmet.predmetId = int.Parse(mcbPredmet.SelectedValue.ToString());
-                    ucenikOcena.ocena = int.Parse(mtbOcena.Text.ToString());
-                    ucenikOcena.ocenaOpis = mtbOcenaOpis.Text;
-
+                    int predmetId = int.Parse(mcbPredmet.SelectedValue.ToString());
+                    UcenikOcena ucenikOcenaOther = context.UcenikOcenas.SingleOrDefault(u => u.Id == ucenikOcenaId);
+                    UcenikOcena ucenikOcena  = context.UcenikOcenas.SingleOrDefault(u => u.ucenikId == UcenikId && u.SmerGodinaPredmet.predmetId == predmetId);
+                    if (ucenikOcena == null)
+                    {
+                        SmerGodinaPredmet sgp = context.SmerGodinaPredmets.SingleOrDefault(s => s.smerGodinaId == ucenikOcenaOther.SmerGodinaPredmet.smerGodinaId && s.predmetId == predmetId);
+                        ucenikOcena = new UcenikOcena()
+                        {
+                            ucenikId = UcenikId,
+                            smerGodinaPredmetId = sgp.Id,
+                        };
+                        ucenikOcena.ocena = int.Parse(mtbOcena.Text.ToString());
+                        ucenikOcena.ocenaOpis = mtbOcenaOpis.Text;
+                        context.UcenikOcenas.Add(ucenikOcena);
+                    }
+                    else
+                    {
+                        ucenikOcena.ocena = int.Parse(mtbOcena.Text.ToString());
+                        ucenikOcena.ocenaOpis = mtbOcenaOpis.Text;
+                    }
                     context.SaveChanges();
                 }
                 ReloadGridOcene();
@@ -205,6 +242,30 @@ namespace Documentum
         private void metroGridDokumenta_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
             ReloadGridUcenikBookmarks();
+        }
+
+        private void mbSaveStudent_Click(object sender, EventArgs e)
+        {
+            using (var context = new documentumEntities())
+            {
+                Ucenik ucenik = context.Uceniks.SingleOrDefault(u => u.Id == UcenikId);
+
+                ucenik.ime = mtbIme.Text;
+                ucenik.prezime = mtbPrezime.Text;
+                ucenik.datum_rodjenja = mdtDatmRodj.Value;
+                ucenik.brojMaticneKnjige =  mtbMaticniBroj.Text;
+                ucenik.imeRoditelja = mtbImeRoditelja.Text;
+                ucenik.mestoRodjenja = mtbMestoRodjenja.Text;
+                ucenik.delovodniBroj = mtbDelovodniBroj.Text;
+                ucenik.kojiput = mtbPut.Text;
+                ucenik.opstina = mtbOpsitna.Text;
+                ucenik.drzava = mtbDrzava.Text;
+
+                context.SaveChanges(); 
+            }
+            ReloadGridOcene();
+            ReloadDetaljeUcenika();
+            
         }
     }
 }

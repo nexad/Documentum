@@ -18,10 +18,13 @@ namespace Documentum
 
     class DocumentumFactory
     {
-        public static IDictionary marks = new Dictionary<int, string>() { {1, "Недовољан" }, {2, "Довољан"}, {3, "Добар"}, {4, "Врло добар"}, {5, "Одличан"}};
+        public static IDictionary marks = new Dictionary<int, string>() { { 0, "Неоцењен" },{1, "Недовољан" }, {2, "Довољан"}, {3, "Добар"}, {4, "Врло добар"}, {5, "Одличан"}};
 
-        public static Nastavnik login;
-        
+        private static Nastavnik login;
+
+        public static Nastavnik Login { get => login; set => login = value; }
+
+
         public static void InitializeApplication()
         {
             

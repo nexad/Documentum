@@ -28,17 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle39 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle43 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle44 = new System.Windows.Forms.DataGridViewCellStyle();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
@@ -60,6 +60,27 @@
             this.metroLabel6 = new MetroFramework.Controls.MetroLabel();
             this.mtbBookmarkValue = new MetroFramework.Controls.MetroTextBox();
             this.metroGridUcenikBookmarks = new MetroFramework.Controls.MetroGrid();
+            this.mtbIme = new MetroFramework.Controls.MetroTextBox();
+            this.mtbPrezime = new MetroFramework.Controls.MetroTextBox();
+            this.mdtDatmRodj = new MetroFramework.Controls.MetroDateTime();
+            this.metroLabel7 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel8 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel9 = new MetroFramework.Controls.MetroLabel();
+            this.mtbImeRoditelja = new MetroFramework.Controls.MetroTextBox();
+            this.mtbMestoRodjenja = new MetroFramework.Controls.MetroTextBox();
+            this.mtbMaticniBroj = new MetroFramework.Controls.MetroTextBox();
+            this.metroLabel10 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel11 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel12 = new MetroFramework.Controls.MetroLabel();
+            this.mtbDelovodniBroj = new MetroFramework.Controls.MetroTextBox();
+            this.metroLabel13 = new MetroFramework.Controls.MetroLabel();
+            this.mtbPut = new MetroFramework.Controls.MetroTextBox();
+            this.mtbOpsitna = new MetroFramework.Controls.MetroTextBox();
+            this.mtbDrzava = new MetroFramework.Controls.MetroTextBox();
+            this.metroLabel14 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel15 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel16 = new MetroFramework.Controls.MetroLabel();
+            this.mbSaveStudent = new MetroFramework.Controls.MetroButton();
             this.metroPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.metroGridDokumenta)).BeginInit();
             this.metroPanel2.SuspendLayout();
@@ -80,6 +101,27 @@
             // 
             // metroPanel1
             // 
+            this.metroPanel1.Controls.Add(this.mbSaveStudent);
+            this.metroPanel1.Controls.Add(this.metroLabel16);
+            this.metroPanel1.Controls.Add(this.metroLabel15);
+            this.metroPanel1.Controls.Add(this.metroLabel14);
+            this.metroPanel1.Controls.Add(this.mtbDrzava);
+            this.metroPanel1.Controls.Add(this.mtbOpsitna);
+            this.metroPanel1.Controls.Add(this.mtbPut);
+            this.metroPanel1.Controls.Add(this.metroLabel13);
+            this.metroPanel1.Controls.Add(this.mtbDelovodniBroj);
+            this.metroPanel1.Controls.Add(this.metroLabel12);
+            this.metroPanel1.Controls.Add(this.metroLabel11);
+            this.metroPanel1.Controls.Add(this.metroLabel10);
+            this.metroPanel1.Controls.Add(this.mtbMaticniBroj);
+            this.metroPanel1.Controls.Add(this.mtbMestoRodjenja);
+            this.metroPanel1.Controls.Add(this.mtbImeRoditelja);
+            this.metroPanel1.Controls.Add(this.metroLabel9);
+            this.metroPanel1.Controls.Add(this.metroLabel8);
+            this.metroPanel1.Controls.Add(this.metroLabel7);
+            this.metroPanel1.Controls.Add(this.mdtDatmRodj);
+            this.metroPanel1.Controls.Add(this.mtbPrezime);
+            this.metroPanel1.Controls.Add(this.mtbIme);
             this.metroPanel1.Controls.Add(this.metroLabel2);
             this.metroPanel1.Controls.Add(this.mbPregled);
             this.metroPanel1.Controls.Add(this.metroGridDokumenta);
@@ -91,7 +133,7 @@
             this.metroPanel1.HorizontalScrollbarSize = 10;
             this.metroPanel1.Location = new System.Drawing.Point(20, 60);
             this.metroPanel1.Name = "metroPanel1";
-            this.metroPanel1.Size = new System.Drawing.Size(1137, 207);
+            this.metroPanel1.Size = new System.Drawing.Size(1137, 279);
             this.metroPanel1.TabIndex = 2;
             this.metroPanel1.VerticalScrollbarBarColor = true;
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
@@ -130,40 +172,40 @@
             this.metroGridDokumenta.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.metroGridDokumenta.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.metroGridDokumenta.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.metroGridDokumenta.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle34.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            dataGridViewCellStyle34.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle34.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle34.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle34.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.metroGridDokumenta.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle34;
             this.metroGridDokumenta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.metroGridDokumenta.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle35.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle35.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle35.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
+            dataGridViewCellStyle35.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle35.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle35.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.metroGridDokumenta.DefaultCellStyle = dataGridViewCellStyle35;
             this.metroGridDokumenta.EnableHeadersVisualStyles = false;
             this.metroGridDokumenta.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.metroGridDokumenta.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.metroGridDokumenta.Location = new System.Drawing.Point(645, 21);
             this.metroGridDokumenta.Name = "metroGridDokumenta";
             this.metroGridDokumenta.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.metroGridDokumenta.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle36.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            dataGridViewCellStyle36.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle36.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle36.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle36.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle36.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.metroGridDokumenta.RowHeadersDefaultCellStyle = dataGridViewCellStyle36;
             this.metroGridDokumenta.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.metroGridDokumenta.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.metroGridDokumenta.Size = new System.Drawing.Size(364, 180);
+            this.metroGridDokumenta.Size = new System.Drawing.Size(364, 238);
             this.metroGridDokumenta.TabIndex = 3;
             this.metroGridDokumenta.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.metroGridDokumenta_RowEnter);
             // 
@@ -172,7 +214,7 @@
             this.mlImePrezime.AutoSize = true;
             this.mlImePrezime.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.mlImePrezime.FontWeight = MetroFramework.MetroLabelWeight.Bold;
-            this.mlImePrezime.Location = new System.Drawing.Point(14, 64);
+            this.mlImePrezime.Location = new System.Drawing.Point(70, 15);
             this.mlImePrezime.Name = "mlImePrezime";
             this.mlImePrezime.Size = new System.Drawing.Size(127, 25);
             this.mlImePrezime.TabIndex = 2;
@@ -187,9 +229,9 @@
             this.metroPanel2.HorizontalScrollbarBarColor = true;
             this.metroPanel2.HorizontalScrollbarHighlightOnWheel = false;
             this.metroPanel2.HorizontalScrollbarSize = 10;
-            this.metroPanel2.Location = new System.Drawing.Point(20, 267);
+            this.metroPanel2.Location = new System.Drawing.Point(20, 339);
             this.metroPanel2.Name = "metroPanel2";
-            this.metroPanel2.Size = new System.Drawing.Size(602, 357);
+            this.metroPanel2.Size = new System.Drawing.Size(602, 285);
             this.metroPanel2.TabIndex = 3;
             this.metroPanel2.VerticalScrollbarBarColor = true;
             this.metroPanel2.VerticalScrollbarHighlightOnWheel = false;
@@ -260,9 +302,10 @@
             this.mbSave.Size = new System.Drawing.Size(75, 23);
             this.mbSave.Style = MetroFramework.MetroColorStyle.Orange;
             this.mbSave.TabIndex = 4;
-            this.mbSave.Text = "Snimi";
+            this.mbSave.Text = "Snimi ocenu";
             this.mbSave.UseSelectable = true;
             this.mbSave.UseStyleColors = true;
+            this.mbSave.Click += new System.EventHandler(this.mbSave_Click);
             // 
             // mtbOcenaOpis
             // 
@@ -327,11 +370,11 @@
             // metroGridOcene
             // 
             this.metroGridOcene.AllowUserToResizeRows = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            this.metroGridOcene.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle37.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle37.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle37.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            dataGridViewCellStyle37.SelectionForeColor = System.Drawing.Color.Black;
+            this.metroGridOcene.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle37;
             this.metroGridOcene.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.metroGridOcene.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
@@ -340,23 +383,23 @@
             this.metroGridOcene.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.metroGridOcene.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.metroGridOcene.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.metroGridOcene.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle38.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            dataGridViewCellStyle38.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle38.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle38.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle38.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle38.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.metroGridOcene.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle38;
             this.metroGridOcene.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.metroGridOcene.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle39.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle39.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle39.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
+            dataGridViewCellStyle39.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            dataGridViewCellStyle39.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle39.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.metroGridOcene.DefaultCellStyle = dataGridViewCellStyle39;
             this.metroGridOcene.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.metroGridOcene.EnableHeadersVisualStyles = false;
             this.metroGridOcene.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
@@ -364,17 +407,17 @@
             this.metroGridOcene.Location = new System.Drawing.Point(-1, 164);
             this.metroGridOcene.Name = "metroGridOcene";
             this.metroGridOcene.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.metroGridOcene.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle40.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle40.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            dataGridViewCellStyle40.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle40.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle40.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle40.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle40.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.metroGridOcene.RowHeadersDefaultCellStyle = dataGridViewCellStyle40;
             this.metroGridOcene.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.metroGridOcene.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.metroGridOcene.Size = new System.Drawing.Size(602, 191);
+            this.metroGridOcene.Size = new System.Drawing.Size(602, 119);
             this.metroGridOcene.TabIndex = 2;
             this.metroGridOcene.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.metroGridOcene_RowEnter);
             // 
@@ -389,9 +432,9 @@
             this.metroPanel3.HorizontalScrollbarBarColor = true;
             this.metroPanel3.HorizontalScrollbarHighlightOnWheel = false;
             this.metroPanel3.HorizontalScrollbarSize = 10;
-            this.metroPanel3.Location = new System.Drawing.Point(622, 267);
+            this.metroPanel3.Location = new System.Drawing.Point(622, 339);
             this.metroPanel3.Name = "metroPanel3";
-            this.metroPanel3.Size = new System.Drawing.Size(535, 357);
+            this.metroPanel3.Size = new System.Drawing.Size(535, 285);
             this.metroPanel3.TabIndex = 4;
             this.metroPanel3.VerticalScrollbarBarColor = true;
             this.metroPanel3.VerticalScrollbarHighlightOnWheel = false;
@@ -453,11 +496,11 @@
             // metroGridUcenikBookmarks
             // 
             this.metroGridUcenikBookmarks.AllowUserToResizeRows = false;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.Black;
-            this.metroGridUcenikBookmarks.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle41.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle41.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle41.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            dataGridViewCellStyle41.SelectionForeColor = System.Drawing.Color.Black;
+            this.metroGridUcenikBookmarks.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle41;
             this.metroGridUcenikBookmarks.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.metroGridUcenikBookmarks.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
@@ -466,42 +509,424 @@
             this.metroGridUcenikBookmarks.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.metroGridUcenikBookmarks.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.metroGridUcenikBookmarks.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.metroGridUcenikBookmarks.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle42.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            dataGridViewCellStyle42.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle42.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle42.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle42.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle42.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.metroGridUcenikBookmarks.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle42;
             this.metroGridUcenikBookmarks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.metroGridUcenikBookmarks.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle43.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle43.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle43.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
+            dataGridViewCellStyle43.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            dataGridViewCellStyle43.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle43.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.metroGridUcenikBookmarks.DefaultCellStyle = dataGridViewCellStyle43;
             this.metroGridUcenikBookmarks.EnableHeadersVisualStyles = false;
             this.metroGridUcenikBookmarks.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.metroGridUcenikBookmarks.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.metroGridUcenikBookmarks.Location = new System.Drawing.Point(6, 164);
             this.metroGridUcenikBookmarks.Name = "metroGridUcenikBookmarks";
             this.metroGridUcenikBookmarks.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.metroGridUcenikBookmarks.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle44.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+            dataGridViewCellStyle44.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            dataGridViewCellStyle44.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle44.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+            dataGridViewCellStyle44.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            dataGridViewCellStyle44.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.metroGridUcenikBookmarks.RowHeadersDefaultCellStyle = dataGridViewCellStyle44;
             this.metroGridUcenikBookmarks.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.metroGridUcenikBookmarks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.metroGridUcenikBookmarks.Size = new System.Drawing.Size(524, 144);
+            this.metroGridUcenikBookmarks.Size = new System.Drawing.Size(524, 72);
             this.metroGridUcenikBookmarks.TabIndex = 2;
             this.metroGridUcenikBookmarks.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.metroGridUcenikBookmarks_RowEnter);
+            // 
+            // mtbIme
+            // 
+            // 
+            // 
+            // 
+            this.mtbIme.CustomButton.Image = null;
+            this.mtbIme.CustomButton.Location = new System.Drawing.Point(125, 1);
+            this.mtbIme.CustomButton.Name = "";
+            this.mtbIme.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.mtbIme.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.mtbIme.CustomButton.TabIndex = 1;
+            this.mtbIme.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.mtbIme.CustomButton.UseSelectable = true;
+            this.mtbIme.CustomButton.Visible = false;
+            this.mtbIme.Lines = new string[0];
+            this.mtbIme.Location = new System.Drawing.Point(134, 54);
+            this.mtbIme.MaxLength = 32767;
+            this.mtbIme.Name = "mtbIme";
+            this.mtbIme.PasswordChar = '\0';
+            this.mtbIme.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.mtbIme.SelectedText = "";
+            this.mtbIme.SelectionLength = 0;
+            this.mtbIme.SelectionStart = 0;
+            this.mtbIme.ShortcutsEnabled = true;
+            this.mtbIme.Size = new System.Drawing.Size(147, 23);
+            this.mtbIme.TabIndex = 6;
+            this.mtbIme.UseSelectable = true;
+            this.mtbIme.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.mtbIme.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
+            // mtbPrezime
+            // 
+            // 
+            // 
+            // 
+            this.mtbPrezime.CustomButton.Image = null;
+            this.mtbPrezime.CustomButton.Location = new System.Drawing.Point(125, 1);
+            this.mtbPrezime.CustomButton.Name = "";
+            this.mtbPrezime.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.mtbPrezime.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.mtbPrezime.CustomButton.TabIndex = 1;
+            this.mtbPrezime.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.mtbPrezime.CustomButton.UseSelectable = true;
+            this.mtbPrezime.CustomButton.Visible = false;
+            this.mtbPrezime.Lines = new string[0];
+            this.mtbPrezime.Location = new System.Drawing.Point(134, 83);
+            this.mtbPrezime.MaxLength = 32767;
+            this.mtbPrezime.Name = "mtbPrezime";
+            this.mtbPrezime.PasswordChar = '\0';
+            this.mtbPrezime.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.mtbPrezime.SelectedText = "";
+            this.mtbPrezime.SelectionLength = 0;
+            this.mtbPrezime.SelectionStart = 0;
+            this.mtbPrezime.ShortcutsEnabled = true;
+            this.mtbPrezime.Size = new System.Drawing.Size(147, 23);
+            this.mtbPrezime.TabIndex = 7;
+            this.mtbPrezime.UseSelectable = true;
+            this.mtbPrezime.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.mtbPrezime.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
+            // mdtDatmRodj
+            // 
+            this.mdtDatmRodj.CustomFormat = "dd.MMM.yyyy";
+            this.mdtDatmRodj.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.mdtDatmRodj.Location = new System.Drawing.Point(134, 112);
+            this.mdtDatmRodj.MinimumSize = new System.Drawing.Size(0, 29);
+            this.mdtDatmRodj.Name = "mdtDatmRodj";
+            this.mdtDatmRodj.Size = new System.Drawing.Size(147, 29);
+            this.mdtDatmRodj.TabIndex = 8;
+            // 
+            // metroLabel7
+            // 
+            this.metroLabel7.AutoSize = true;
+            this.metroLabel7.Location = new System.Drawing.Point(14, 58);
+            this.metroLabel7.Name = "metroLabel7";
+            this.metroLabel7.Size = new System.Drawing.Size(31, 19);
+            this.metroLabel7.TabIndex = 9;
+            this.metroLabel7.Text = "Ime";
+            // 
+            // metroLabel8
+            // 
+            this.metroLabel8.AutoSize = true;
+            this.metroLabel8.Location = new System.Drawing.Point(14, 87);
+            this.metroLabel8.Name = "metroLabel8";
+            this.metroLabel8.Size = new System.Drawing.Size(57, 19);
+            this.metroLabel8.TabIndex = 10;
+            this.metroLabel8.Text = "Prezime";
+            // 
+            // metroLabel9
+            // 
+            this.metroLabel9.AutoSize = true;
+            this.metroLabel9.Location = new System.Drawing.Point(14, 122);
+            this.metroLabel9.Name = "metroLabel9";
+            this.metroLabel9.Size = new System.Drawing.Size(100, 19);
+            this.metroLabel9.TabIndex = 11;
+            this.metroLabel9.Text = "Datum rodjenja";
+            // 
+            // mtbImeRoditelja
+            // 
+            // 
+            // 
+            // 
+            this.mtbImeRoditelja.CustomButton.Image = null;
+            this.mtbImeRoditelja.CustomButton.Location = new System.Drawing.Point(125, 1);
+            this.mtbImeRoditelja.CustomButton.Name = "";
+            this.mtbImeRoditelja.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.mtbImeRoditelja.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.mtbImeRoditelja.CustomButton.TabIndex = 1;
+            this.mtbImeRoditelja.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.mtbImeRoditelja.CustomButton.UseSelectable = true;
+            this.mtbImeRoditelja.CustomButton.Visible = false;
+            this.mtbImeRoditelja.Lines = new string[0];
+            this.mtbImeRoditelja.Location = new System.Drawing.Point(134, 147);
+            this.mtbImeRoditelja.MaxLength = 32767;
+            this.mtbImeRoditelja.Name = "mtbImeRoditelja";
+            this.mtbImeRoditelja.PasswordChar = '\0';
+            this.mtbImeRoditelja.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.mtbImeRoditelja.SelectedText = "";
+            this.mtbImeRoditelja.SelectionLength = 0;
+            this.mtbImeRoditelja.SelectionStart = 0;
+            this.mtbImeRoditelja.ShortcutsEnabled = true;
+            this.mtbImeRoditelja.Size = new System.Drawing.Size(147, 23);
+            this.mtbImeRoditelja.TabIndex = 12;
+            this.mtbImeRoditelja.UseSelectable = true;
+            this.mtbImeRoditelja.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.mtbImeRoditelja.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
+            // mtbMestoRodjenja
+            // 
+            // 
+            // 
+            // 
+            this.mtbMestoRodjenja.CustomButton.Image = null;
+            this.mtbMestoRodjenja.CustomButton.Location = new System.Drawing.Point(125, 1);
+            this.mtbMestoRodjenja.CustomButton.Name = "";
+            this.mtbMestoRodjenja.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.mtbMestoRodjenja.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.mtbMestoRodjenja.CustomButton.TabIndex = 1;
+            this.mtbMestoRodjenja.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.mtbMestoRodjenja.CustomButton.UseSelectable = true;
+            this.mtbMestoRodjenja.CustomButton.Visible = false;
+            this.mtbMestoRodjenja.Lines = new string[0];
+            this.mtbMestoRodjenja.Location = new System.Drawing.Point(134, 178);
+            this.mtbMestoRodjenja.MaxLength = 32767;
+            this.mtbMestoRodjenja.Name = "mtbMestoRodjenja";
+            this.mtbMestoRodjenja.PasswordChar = '\0';
+            this.mtbMestoRodjenja.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.mtbMestoRodjenja.SelectedText = "";
+            this.mtbMestoRodjenja.SelectionLength = 0;
+            this.mtbMestoRodjenja.SelectionStart = 0;
+            this.mtbMestoRodjenja.ShortcutsEnabled = true;
+            this.mtbMestoRodjenja.Size = new System.Drawing.Size(147, 23);
+            this.mtbMestoRodjenja.TabIndex = 13;
+            this.mtbMestoRodjenja.UseSelectable = true;
+            this.mtbMestoRodjenja.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.mtbMestoRodjenja.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
+            // mtbMaticniBroj
+            // 
+            // 
+            // 
+            // 
+            this.mtbMaticniBroj.CustomButton.Image = null;
+            this.mtbMaticniBroj.CustomButton.Location = new System.Drawing.Point(125, 1);
+            this.mtbMaticniBroj.CustomButton.Name = "";
+            this.mtbMaticniBroj.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.mtbMaticniBroj.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.mtbMaticniBroj.CustomButton.TabIndex = 1;
+            this.mtbMaticniBroj.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.mtbMaticniBroj.CustomButton.UseSelectable = true;
+            this.mtbMaticniBroj.CustomButton.Visible = false;
+            this.mtbMaticniBroj.Lines = new string[0];
+            this.mtbMaticniBroj.Location = new System.Drawing.Point(134, 207);
+            this.mtbMaticniBroj.MaxLength = 32767;
+            this.mtbMaticniBroj.Name = "mtbMaticniBroj";
+            this.mtbMaticniBroj.PasswordChar = '\0';
+            this.mtbMaticniBroj.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.mtbMaticniBroj.SelectedText = "";
+            this.mtbMaticniBroj.SelectionLength = 0;
+            this.mtbMaticniBroj.SelectionStart = 0;
+            this.mtbMaticniBroj.ShortcutsEnabled = true;
+            this.mtbMaticniBroj.Size = new System.Drawing.Size(147, 23);
+            this.mtbMaticniBroj.TabIndex = 14;
+            this.mtbMaticniBroj.UseSelectable = true;
+            this.mtbMaticniBroj.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.mtbMaticniBroj.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
+            // metroLabel10
+            // 
+            this.metroLabel10.AutoSize = true;
+            this.metroLabel10.Location = new System.Drawing.Point(14, 151);
+            this.metroLabel10.Name = "metroLabel10";
+            this.metroLabel10.Size = new System.Drawing.Size(83, 19);
+            this.metroLabel10.TabIndex = 15;
+            this.metroLabel10.Text = "Ime roditelja";
+            // 
+            // metroLabel11
+            // 
+            this.metroLabel11.AutoSize = true;
+            this.metroLabel11.Location = new System.Drawing.Point(14, 211);
+            this.metroLabel11.Name = "metroLabel11";
+            this.metroLabel11.Size = new System.Drawing.Size(79, 19);
+            this.metroLabel11.TabIndex = 16;
+            this.metroLabel11.Text = "Matični broj";
+            // 
+            // metroLabel12
+            // 
+            this.metroLabel12.AutoSize = true;
+            this.metroLabel12.Location = new System.Drawing.Point(14, 182);
+            this.metroLabel12.Name = "metroLabel12";
+            this.metroLabel12.Size = new System.Drawing.Size(87, 19);
+            this.metroLabel12.TabIndex = 17;
+            this.metroLabel12.Text = "Mesto rodj. u";
+            // 
+            // mtbDelovodniBroj
+            // 
+            // 
+            // 
+            // 
+            this.mtbDelovodniBroj.CustomButton.Image = null;
+            this.mtbDelovodniBroj.CustomButton.Location = new System.Drawing.Point(125, 1);
+            this.mtbDelovodniBroj.CustomButton.Name = "";
+            this.mtbDelovodniBroj.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.mtbDelovodniBroj.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.mtbDelovodniBroj.CustomButton.TabIndex = 1;
+            this.mtbDelovodniBroj.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.mtbDelovodniBroj.CustomButton.UseSelectable = true;
+            this.mtbDelovodniBroj.CustomButton.Visible = false;
+            this.mtbDelovodniBroj.Lines = new string[0];
+            this.mtbDelovodniBroj.Location = new System.Drawing.Point(134, 236);
+            this.mtbDelovodniBroj.MaxLength = 32767;
+            this.mtbDelovodniBroj.Name = "mtbDelovodniBroj";
+            this.mtbDelovodniBroj.PasswordChar = '\0';
+            this.mtbDelovodniBroj.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.mtbDelovodniBroj.SelectedText = "";
+            this.mtbDelovodniBroj.SelectionLength = 0;
+            this.mtbDelovodniBroj.SelectionStart = 0;
+            this.mtbDelovodniBroj.ShortcutsEnabled = true;
+            this.mtbDelovodniBroj.Size = new System.Drawing.Size(147, 23);
+            this.mtbDelovodniBroj.TabIndex = 18;
+            this.mtbDelovodniBroj.UseSelectable = true;
+            this.mtbDelovodniBroj.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.mtbDelovodniBroj.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
+            // metroLabel13
+            // 
+            this.metroLabel13.AutoSize = true;
+            this.metroLabel13.Location = new System.Drawing.Point(14, 240);
+            this.metroLabel13.Name = "metroLabel13";
+            this.metroLabel13.Size = new System.Drawing.Size(96, 19);
+            this.metroLabel13.TabIndex = 19;
+            this.metroLabel13.Text = "Delovodni broj";
+            // 
+            // mtbPut
+            // 
+            // 
+            // 
+            // 
+            this.mtbPut.CustomButton.Image = null;
+            this.mtbPut.CustomButton.Location = new System.Drawing.Point(102, 1);
+            this.mtbPut.CustomButton.Name = "";
+            this.mtbPut.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.mtbPut.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.mtbPut.CustomButton.TabIndex = 1;
+            this.mtbPut.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.mtbPut.CustomButton.UseSelectable = true;
+            this.mtbPut.CustomButton.Visible = false;
+            this.mtbPut.Lines = new string[0];
+            this.mtbPut.Location = new System.Drawing.Point(444, 54);
+            this.mtbPut.MaxLength = 32767;
+            this.mtbPut.Name = "mtbPut";
+            this.mtbPut.PasswordChar = '\0';
+            this.mtbPut.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.mtbPut.SelectedText = "";
+            this.mtbPut.SelectionLength = 0;
+            this.mtbPut.SelectionStart = 0;
+            this.mtbPut.ShortcutsEnabled = true;
+            this.mtbPut.Size = new System.Drawing.Size(124, 23);
+            this.mtbPut.TabIndex = 20;
+            this.mtbPut.UseSelectable = true;
+            this.mtbPut.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.mtbPut.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
+            // mtbOpsitna
+            // 
+            // 
+            // 
+            // 
+            this.mtbOpsitna.CustomButton.Image = null;
+            this.mtbOpsitna.CustomButton.Location = new System.Drawing.Point(102, 1);
+            this.mtbOpsitna.CustomButton.Name = "";
+            this.mtbOpsitna.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.mtbOpsitna.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.mtbOpsitna.CustomButton.TabIndex = 1;
+            this.mtbOpsitna.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.mtbOpsitna.CustomButton.UseSelectable = true;
+            this.mtbOpsitna.CustomButton.Visible = false;
+            this.mtbOpsitna.Lines = new string[0];
+            this.mtbOpsitna.Location = new System.Drawing.Point(444, 83);
+            this.mtbOpsitna.MaxLength = 32767;
+            this.mtbOpsitna.Name = "mtbOpsitna";
+            this.mtbOpsitna.PasswordChar = '\0';
+            this.mtbOpsitna.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.mtbOpsitna.SelectedText = "";
+            this.mtbOpsitna.SelectionLength = 0;
+            this.mtbOpsitna.SelectionStart = 0;
+            this.mtbOpsitna.ShortcutsEnabled = true;
+            this.mtbOpsitna.Size = new System.Drawing.Size(124, 23);
+            this.mtbOpsitna.TabIndex = 21;
+            this.mtbOpsitna.UseSelectable = true;
+            this.mtbOpsitna.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.mtbOpsitna.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
+            // mtbDrzava
+            // 
+            // 
+            // 
+            // 
+            this.mtbDrzava.CustomButton.Image = null;
+            this.mtbDrzava.CustomButton.Location = new System.Drawing.Point(102, 1);
+            this.mtbDrzava.CustomButton.Name = "";
+            this.mtbDrzava.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.mtbDrzava.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.mtbDrzava.CustomButton.TabIndex = 1;
+            this.mtbDrzava.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.mtbDrzava.CustomButton.UseSelectable = true;
+            this.mtbDrzava.CustomButton.Visible = false;
+            this.mtbDrzava.Lines = new string[0];
+            this.mtbDrzava.Location = new System.Drawing.Point(444, 112);
+            this.mtbDrzava.MaxLength = 32767;
+            this.mtbDrzava.Name = "mtbDrzava";
+            this.mtbDrzava.PasswordChar = '\0';
+            this.mtbDrzava.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.mtbDrzava.SelectedText = "";
+            this.mtbDrzava.SelectionLength = 0;
+            this.mtbDrzava.SelectionStart = 0;
+            this.mtbDrzava.ShortcutsEnabled = true;
+            this.mtbDrzava.Size = new System.Drawing.Size(124, 23);
+            this.mtbDrzava.TabIndex = 22;
+            this.mtbDrzava.UseSelectable = true;
+            this.mtbDrzava.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.mtbDrzava.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
+            // metroLabel14
+            // 
+            this.metroLabel14.AutoSize = true;
+            this.metroLabel14.Location = new System.Drawing.Point(352, 58);
+            this.metroLabel14.Name = "metroLabel14";
+            this.metroLabel14.Size = new System.Drawing.Size(53, 19);
+            this.metroLabel14.TabIndex = 23;
+            this.metroLabel14.Text = "Koji put";
+            // 
+            // metroLabel15
+            // 
+            this.metroLabel15.AutoSize = true;
+            this.metroLabel15.Location = new System.Drawing.Point(352, 89);
+            this.metroLabel15.Name = "metroLabel15";
+            this.metroLabel15.Size = new System.Drawing.Size(54, 19);
+            this.metroLabel15.TabIndex = 24;
+            this.metroLabel15.Text = "Opstina";
+            // 
+            // metroLabel16
+            // 
+            this.metroLabel16.AutoSize = true;
+            this.metroLabel16.Location = new System.Drawing.Point(352, 116);
+            this.metroLabel16.Name = "metroLabel16";
+            this.metroLabel16.Size = new System.Drawing.Size(49, 19);
+            this.metroLabel16.TabIndex = 25;
+            this.metroLabel16.Text = "Drzava";
+            // 
+            // mbSaveStudent
+            // 
+            this.mbSaveStudent.Location = new System.Drawing.Point(444, 236);
+            this.mbSaveStudent.Name = "mbSaveStudent";
+            this.mbSaveStudent.Size = new System.Drawing.Size(75, 23);
+            this.mbSaveStudent.Style = MetroFramework.MetroColorStyle.Orange;
+            this.mbSaveStudent.TabIndex = 26;
+            this.mbSaveStudent.Text = "Snimi detalje";
+            this.mbSaveStudent.UseSelectable = true;
+            this.mbSaveStudent.UseStyleColors = true;
+            this.mbSaveStudent.Click += new System.EventHandler(this.mbSaveStudent_Click);
             // 
             // FormDetaljiUcenika
             // 
@@ -552,5 +977,26 @@
         private MetroFramework.Controls.MetroTextBox mtbOcenaOpis;
         private MetroFramework.Controls.MetroTextBox mtbOcena;
         private MetroFramework.Controls.MetroButton mbSaveBookmark;
+        private MetroFramework.Controls.MetroLabel metroLabel11;
+        private MetroFramework.Controls.MetroLabel metroLabel10;
+        private MetroFramework.Controls.MetroTextBox mtbMaticniBroj;
+        private MetroFramework.Controls.MetroTextBox mtbMestoRodjenja;
+        private MetroFramework.Controls.MetroTextBox mtbImeRoditelja;
+        private MetroFramework.Controls.MetroLabel metroLabel9;
+        private MetroFramework.Controls.MetroLabel metroLabel8;
+        private MetroFramework.Controls.MetroLabel metroLabel7;
+        private MetroFramework.Controls.MetroDateTime mdtDatmRodj;
+        private MetroFramework.Controls.MetroTextBox mtbPrezime;
+        private MetroFramework.Controls.MetroTextBox mtbIme;
+        private MetroFramework.Controls.MetroLabel metroLabel12;
+        private MetroFramework.Controls.MetroLabel metroLabel13;
+        private MetroFramework.Controls.MetroTextBox mtbDelovodniBroj;
+        private MetroFramework.Controls.MetroLabel metroLabel16;
+        private MetroFramework.Controls.MetroLabel metroLabel15;
+        private MetroFramework.Controls.MetroLabel metroLabel14;
+        private MetroFramework.Controls.MetroTextBox mtbDrzava;
+        private MetroFramework.Controls.MetroTextBox mtbOpsitna;
+        private MetroFramework.Controls.MetroTextBox mtbPut;
+        private MetroFramework.Controls.MetroButton mbSaveStudent;
     }
 }

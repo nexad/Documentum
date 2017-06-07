@@ -119,6 +119,7 @@ namespace Documentum
                                       Ucenik.imeRoditelja,
                                       Ucenik.datum_rodjenja,
                                       neuneteOcene = Ucenik.UcenikOcenas.Where(uo => uo.ocena == -1).Count(),
+                                      nedovoljnih = Ucenik.UcenikOcenas.Where(uo => uo.ocena == 1).Count(),
                                       brojNekreiranih = Ucenik.UcenikDokuments.Where(d=> d.status == (int) StudentDocumentStatus.Nonexistent).Count(),
                                       brojKreiranih = Ucenik.UcenikDokuments.Where(d => d.status == (int)StudentDocumentStatus.Created).Count(),
                                       brojStampanih = Ucenik.UcenikDokuments.Where(d => d.status == (int)StudentDocumentStatus.Printed).Count(),
@@ -275,12 +276,37 @@ namespace Documentum
                                         ucenik.imeRoditelja = cellValue;
                                         break;
                                     case "F":
-                                        datumRodjenja = cellValue;
+                                        datumRodjenja =  cellValue.Replace(" ","");
                                         break;
                                     case "G":
-                                        datumRodjenja = datumRodjenja + cellValue;
-                                        DateTime myDate = DateTime.ParseExact(datumRodjenja, "dd.MM.yyyy",
-                                           System.Globalization.CultureInfo.InvariantCulture);
+                                        int godina = 0;
+                                        try
+                                        {
+                                            godina = int.Parse(cellValue.Replace(".", ""));
+                                            if (godina.ToString().Length == 2)
+                                            {
+                                                if (godina > 90)
+                                                {
+                                                    godina = godina + 1900;
+                                                }
+                                                else
+                                                    godina = godina + 2000;
+                                            }
+                                        } catch
+                                        {
+                                            godina = 0;
+                                        }
+                                        
+                                        
+                                        datumRodjenja = datumRodjenja + godina.ToString();
+                                        DateTime myDate;
+                                        try { 
+                                            myDate = DateTime.ParseExact(datumRodjenja, "dd.MM.yyyy",
+                                            System.Globalization.CultureInfo.InvariantCulture);
+                                        } catch
+                                        {
+                                            myDate = DateTime.Today;
+                                        }
                                         ucenik.datum_rodjenja = myDate;
                                         break;
                                     case "H":
@@ -501,12 +527,17 @@ namespace Documentum
                                                 if (ucenikOcena != null) { 
                                                     if (!(new[] { "W", "X" }.Contains(columnReference)))
                                                     {
+                                                        int ocena = 0;
+                                                        if (int.TryParse(cellValue, out ocena))
+                                                            ucenikOcena.ocena = ocena;
+                                                        else
+                                                            ucenikOcena.ocena = -1;
                                                         int grupa = (int) ucenikOcena.SmerGodinaPredmet.grupaId;
-                                                        if  (grupa > 0)
+                                                        if  (grupa > 0 && ocena>0)
                                                         {
                                                             UpdateUcenikGrupa(context, ucenik, ucenikOcena);
                                                         }
-                                                        ucenikOcena.ocena = int.Parse(cellValue);
+                                                        
                                                         ucenikOcena.ocenaOpis = DocumentumFactory.marks[ucenikOcena.ocena].ToString();
                                                     }
                                                     else
@@ -549,6 +580,665 @@ namespace Documentum
 
 
                         context.SaveChanges();
+                    }
+                }
+            }
+            Thread.Sleep(1000);
+            progressForm.Close();
+        }
+
+        private void AddOrUpdateUcenikBookmark(int ucenikDokumentId,  string bookmarkName, string value, documentumEntities context = null)
+        {
+            if (ucenikDokumentId == 0 || bookmarkName.Equals(""))
+                return;
+            if (context == null) context = new documentumEntities();
+
+            using (context)
+            {
+                UcenikBookmark ucenikBookmark = context.UcenikBookmarks.SingleOrDefault(u => u.ucenikDokumentId == ucenikDokumentId && u.Bookmark.bookmarkName == bookmarkName);
+                if (ucenikBookmark != null)
+                {
+                    ucenikBookmark.value = value;
+                } else
+                {
+                    
+                    UcenikDokument ucenikDokument = context.UcenikDokuments.SingleOrDefault(ud => ud.Id == ucenikDokumentId);
+                    Bookmark bookmark = context.Bookmarks.SingleOrDefault(b => b.dokumentTipId == ucenikDokument.dokumentTipId && b.bookmarkName == bookmarkName);
+                    if (bookmark != null)
+                    {
+                        ucenikBookmark = new UcenikBookmark();
+                        ucenikBookmark.ucenikDokumentId = ucenikDokumentId;
+                        ucenikBookmark.bookmarkId = bookmark.Id;
+                    }
+                }
+
+                context.SaveChanges();
+            }
+        }
+
+        private void ImportFileDiplomaUverenje3(string fileName)
+        {
+            if (!File.Exists(fileName))
+            {
+                MessageBox.Show(String.Format("Ne postoji fajl {0} ", fileName), "Greska prilikom ucitavanja fajla",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+           
+            int ucenikDokumentUverenjeId = 0;
+            int ucenikDokumentDiplomaId = 0;
+
+
+            int stepStatus = 5;
+            int studentsCount = 0;
+            ProgressForm progressForm = new ProgressForm();
+
+            progressForm.Show();
+            progressForm.SetProgress(stepStatus, "Brisanje liste ocena...");
+
+            if (!File.Exists(fileName))
+            {
+                return;
+            }
+
+            using (var context = new documentumEntities())
+            {
+                
+                var classIdParameter = new SqlParameter("@ClassId", this.RazredId);
+
+                var result = context.Database
+                    .SqlQuery<StandardExecutionResult>("SinhronizeStudentsBookmarks @ClassId", classIdParameter)
+                    .ToDictionary(t => t.ErrCode, t => t.ErrMessage);
+                context.SaveChanges();
+            }
+            stepStatus += 5;
+            progressForm.SetProgress(stepStatus, "Ucitavanje dodatnih podataka iz excel dokumenta...");
+            using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                using (SpreadsheetDocument doc = SpreadsheetDocument.Open(fs, false))
+                {
+                    WorkbookPart workbookPart = doc.WorkbookPart;
+                    SharedStringTablePart sstpart = workbookPart.GetPartsOfType<SharedStringTablePart>().First();
+                    SharedStringTable sst = sstpart.SharedStringTable;
+
+                    string sheetName = "подаци";
+
+                    string relId = workbookPart.Workbook.Descendants<Sheet>().First(s => sheetName.Equals(s.Name)).Id;
+                    WorksheetPart worksheetPart = (WorksheetPart)workbookPart.GetPartById(relId);
+                    Worksheet sheet = worksheetPart.Worksheet;
+
+                    var cells = sheet.Descendants<Cell>();
+                    var rows = sheet.Descendants<Row>();
+
+                    Console.WriteLine("Row count = {0}", rows.LongCount());
+                    Console.WriteLine("Cell count = {0}", cells.LongCount());
+
+                    long rowCount = rows.LongCount();
+                    IDictionary subjects = new Dictionary<string, string>();
+
+                    using (var context = new documentumEntities())
+                    {
+                        foreach (Row row in rows)
+                        {
+                            bool newUcenik = true;
+                            int rowNumber = int.Parse(row.RowIndex.ToString());
+
+                            if (rowNumber < 3)
+                                continue;
+
+
+                            Ucenik ucenik = null;
+
+                            int redniBroj = 0;
+                            string imeUcenika = "";
+                            string prezimeUcenika = "";
+                            foreach (Cell c in row.Elements<Cell>())
+                            {
+                                if (!newUcenik)
+                                    continue;
+                                string cellReference = c.CellReference.ToString().Trim();
+                                string columnReference = System.Text.RegularExpressions.Regex.Replace(cellReference.ToUpper(), @"[\d]", string.Empty);
+                                string cellValue = "";
+                                if ((c.DataType != null) && (c.DataType == CellValues.SharedString))
+                                {
+                                    int ssid = int.Parse(c.CellValue.Text);
+                                    cellValue = sst.ChildElements[ssid].InnerText.Trim();
+                                    Console.WriteLine("Shared string {0}: {1}", ssid, cellValue);
+
+                                }
+                                else if (c.CellValue != null)
+                                {
+                                    cellValue = c.CellValue.Text.ToString().Trim();
+                                    Console.WriteLine("Cell contents: {0}", c.CellValue.Text);
+                                }
+                                if (columnReference == "B")
+                                {
+                                    if ((rowNumber >= 3) && (cellValue.Equals("0") || cellValue.Trim().Equals("")))
+                                    {
+                                        newUcenik = false;
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        newUcenik = true;
+
+                                    }
+                                }
+                                if (!newUcenik)
+                                    continue;
+                                switch (columnReference)
+                                {
+                                    case "A":
+                                        if (rowNumber >= 3 && !cellValue.Equals(""))
+                                            redniBroj = int.Parse(cellValue);
+                                        break;
+                                    case "B":
+                                        if (rowNumber >= 3)
+                                            prezimeUcenika = cellValue;
+                                        break;
+                                    case "C":
+                                        if (rowNumber >= 3)
+                                        {
+                                            imeUcenika = cellValue;
+                                            ucenik = context.Uceniks.SingleOrDefault(u => u.razredId == RazredId && u.redniBroj == redniBroj && u.ime.ToUpper().Trim() == imeUcenika.ToUpper().Trim());
+                                            try
+                                            { 
+                                                ucenikDokumentUverenjeId = context.UcenikDokuments.SingleOrDefault(u=> u.ucenikId == ucenik.Id && u.DokumentTip.naziv.Equals("UverenjeObrazac4b-B")).Id;
+                                            } catch
+                                            {
+                                                ucenikDokumentUverenjeId = 0;
+                                            }
+                                            try
+                                            {
+                                                ucenikDokumentDiplomaId = context.UcenikDokuments.SingleOrDefault(u => u.ucenikId == ucenik.Id && u.DokumentTip.naziv.Equals("Diploma3stepen")).Id;
+                                            } catch
+                                            {
+                                                ucenikDokumentDiplomaId = 0;
+                                            }
+                                        }
+                                            
+                                        break;
+                                    case "D":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentDiplomaId, "_nazivrada", cellValue);
+                                        break;
+                                    case "E":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentDiplomaId, "_konocena", cellValue);
+                                        break;
+                                    case "F":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentDiplomaId, "_uspeh", cellValue);
+                                        break;
+                                    case "G":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_delovodnibroj", cellValue);
+                                        break;
+                                    case "H":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_opstiuspeh1", cellValue);
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_srednjaocena1", cellValue);
+                                        break;
+                                    case "I":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_opstiuspeh2", cellValue);
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_srednjaocena2", cellValue);
+                                        break;
+                                    case "J":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_opstiuspeh3", cellValue);
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_srednjaocena3", cellValue);
+                                        break;
+                                    case "K":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_opstiuspeh4", cellValue);
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_srednjaocena4", cellValue);
+                                        break;
+                                    case "L":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_radnizadatak1", cellValue);
+                                        break;
+                                    case "M":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspeh1", cellValue);
+                                        break;
+                                    case "N":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_radnizadatak2", cellValue);
+                                        break;
+                                    case "O":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspeh2", cellValue);
+                                        break;
+                                    case "P":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_radnizadatak3", cellValue);
+                                        break;
+                                    case "Q":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspeh3", cellValue);
+                                        break;
+                                    case "R":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_bodovi", cellValue);
+                                        break;
+                                    case "S":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_konuspeh", cellValue);
+                                        break;
+                                    case "T":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_nazivtakmicenjaidiscipline1", cellValue);
+                                        break;
+                                    case "U":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_mesto1", cellValue);
+                                        break;
+                                    case "V":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_datum1", cellValue);
+                                        break;
+                                    default:
+                                        break;
+
+                                }
+
+                            }
+
+                            if (newUcenik)
+                            {
+
+                                studentsCount += 1;
+                                stepStatus += (int)(50 / rowCount);
+                                progressForm.SetProgress(stepStatus, String.Format("Ucitavanje liste ocena iz excel dokumenta...{0}", studentsCount));
+                            }
+                        }
+                        context.SaveChanges();
+                        
+                    }
+                }
+            }
+            Thread.Sleep(1000);
+            progressForm.Close();
+        }
+
+        private void ImportFileDiplomaUverenje4(string fileName)
+        {
+            if (!File.Exists(fileName))
+            {
+                MessageBox.Show(String.Format("Ne postoji fajl {0} ", fileName), "Greska prilikom ucitavanja fajla",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            int ucenikDokumentUverenjeId = 0;
+            int ucenikDokumentDiplomaId = 0;
+
+
+            int stepStatus = 5;
+            int studentsCount = 0;
+            ProgressForm progressForm = new ProgressForm();
+
+            progressForm.Show();
+            progressForm.SetProgress(stepStatus, "Brisanje liste ocena...");
+
+            if (!File.Exists(fileName))
+            {
+                return;
+            }
+
+            using (var context = new documentumEntities())
+            {
+
+                var classIdParameter = new SqlParameter("@ClassId", this.RazredId);
+
+                var result = context.Database
+                    .SqlQuery<StandardExecutionResult>("SinhronizeStudentsBookmarks @ClassId", classIdParameter)
+                    .ToDictionary(t => t.ErrCode, t => t.ErrMessage);
+                context.SaveChanges();
+            }
+            stepStatus += 5;
+            progressForm.SetProgress(stepStatus, "Ucitavanje dodatnih podataka iz excel dokumenta...");
+            using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                using (SpreadsheetDocument doc = SpreadsheetDocument.Open(fs, false))
+                {
+                    WorkbookPart workbookPart = doc.WorkbookPart;
+                    SharedStringTablePart sstpart = workbookPart.GetPartsOfType<SharedStringTablePart>().First();
+                    SharedStringTable sst = sstpart.SharedStringTable;
+
+                    string sheetName = "подаци";
+
+                    string relId = workbookPart.Workbook.Descendants<Sheet>().First(s => sheetName.Equals(s.Name)).Id;
+                    WorksheetPart worksheetPart = (WorksheetPart)workbookPart.GetPartById(relId);
+                    Worksheet sheet = worksheetPart.Worksheet;
+
+                    var cells = sheet.Descendants<Cell>();
+                    var rows = sheet.Descendants<Row>();
+
+                    Console.WriteLine("Row count = {0}", rows.LongCount());
+                    Console.WriteLine("Cell count = {0}", cells.LongCount());
+
+                    long rowCount = rows.LongCount();
+                    IDictionary subjects = new Dictionary<string, string>();
+
+                    using (var context = new documentumEntities())
+                    {
+                        foreach (Row row in rows)
+                        {
+                            bool newUcenik = true;
+                            int rowNumber = int.Parse(row.RowIndex.ToString());
+
+                            if (rowNumber < 3)
+                                continue;
+
+
+                            Ucenik ucenik = null;
+
+                            int redniBroj = 0;
+                            string imeUcenika = "";
+                            string prezimeUcenika = "";
+                            foreach (Cell c in row.Elements<Cell>())
+                            {
+                                if (!newUcenik)
+                                    continue;
+                                string cellReference = c.CellReference.ToString().Trim();
+                                string columnReference = System.Text.RegularExpressions.Regex.Replace(cellReference.ToUpper(), @"[\d]", string.Empty);
+                                string cellValue = "";
+                                if ((c.DataType != null) && (c.DataType == CellValues.SharedString))
+                                {
+                                    int ssid = int.Parse(c.CellValue.Text);
+                                    cellValue = sst.ChildElements[ssid].InnerText.Trim();
+                                    Console.WriteLine("Shared string {0}: {1}", ssid, cellValue);
+
+                                }
+                                else if (c.CellValue != null)
+                                {
+                                    cellValue = c.CellValue.Text.ToString().Trim();
+                                    Console.WriteLine("Cell contents: {0}", c.CellValue.Text);
+                                }
+                                if (columnReference == "B")
+                                {
+                                    if ((rowNumber >= 3) && (cellValue.Equals("0") || cellValue.Trim().Equals("")))
+                                    {
+                                        newUcenik = false;
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        newUcenik = true;
+
+                                    }
+                                }
+                                if (!newUcenik)
+                                    continue;
+                                switch (columnReference)
+                                {
+                                    case "A":
+                                        if (rowNumber >= 3 && !cellValue.Equals(""))
+                                            redniBroj = int.Parse(cellValue);
+                                        break;
+                                    case "B":
+                                        if (rowNumber >= 3)
+                                            prezimeUcenika = cellValue;
+                                        break;
+                                    case "C":
+                                        if (rowNumber >= 3)
+                                        {
+                                            imeUcenika = cellValue;
+                                            ucenik = context.Uceniks.SingleOrDefault(u => u.razredId == RazredId && u.redniBroj == redniBroj && u.ime.ToUpper().Trim() == imeUcenika.ToUpper().Trim());
+                                            try
+                                            {
+                                                ucenikDokumentUverenjeId = context.UcenikDokuments.SingleOrDefault(u => u.ucenikId == ucenik.Id && u.DokumentTip.naziv.Equals("UverenjeObrazac4a-B")).Id;
+                                            }
+                                            catch
+                                            {
+                                                ucenikDokumentUverenjeId = 0;
+                                            }
+                                            try
+                                            {
+                                                ucenikDokumentDiplomaId = context.UcenikDokuments.SingleOrDefault(u => u.ucenikId == ucenik.Id && u.DokumentTip.naziv.Equals("Diploma4stepen")).Id;
+                                            }
+                                            catch
+                                            {
+                                                ucenikDokumentDiplomaId = 0;
+                                            }
+                                        }
+                                        break;
+                                    case "D":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentDiplomaId, "_nazivrada", cellValue);
+                                        break;
+                                    case "E":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentDiplomaId, "_konocena", cellValue);
+                                        break;
+                                    case "F":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentDiplomaId, "_matpredmet1", cellValue);
+                                        break;
+                                    case "G":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentDiplomaId, "_matocena1", cellValue);
+                                        break;
+                                    case "H":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentDiplomaId, "_matpredmet2", cellValue);
+                                        break;
+                                    case "I":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentDiplomaId, "_matocena2", cellValue);
+                                        break;
+                                    case "J":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentDiplomaId, "_matpredmet3", cellValue);
+                                        break;
+                                    case "K":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentDiplomaId, "_matocena3", cellValue);
+                                        break;
+                                    case "L":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentDiplomaId, "_uspeh", cellValue);
+                                        break;
+
+
+                                    case "M":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_delbrojidat", cellValue);
+                                        break;
+                                    case "N":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspehprviraz", cellValue);
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspehprviraz1", cellValue);
+                                        break;
+                                    case "O":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspehdrugiraz", cellValue);
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspehdrugiraz1", cellValue);
+                                        break;
+                                    case "P":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspehtreciraz", cellValue);
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspehtreciraz1", cellValue);
+                                        break;
+                                    case "Q":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspehcetvraz", cellValue);
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspehcetvraz1", cellValue);
+                                        break;
+                                    case "R":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_predmet1", cellValue);
+                                        break;
+                                    case "S":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_prviraz1", cellValue);
+                                        break;
+                                    case "T":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_drugiraz1", cellValue);
+                                        break;
+                                    case "U":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_treciraz1", cellValue);
+                                        break;
+                                    case "V":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_cetvrtiraz1", cellValue);
+                                        break;
+                                    case "W":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_predmet2", cellValue);
+                                        break;
+                                    case "X":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_prviraz2", cellValue);
+                                        break;
+                                    case "Y":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_drugiraz2", cellValue);
+                                        break;
+                                    case "Z":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_treciraz2", cellValue);
+                                        break;
+                                    case "AA":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_cetvrtiraz2", cellValue);
+                                        break;
+                                    case "AB":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_predmet3", cellValue);
+                                        break;
+                                    case "AC":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_prviraz3", cellValue);
+                                        break;
+                                    case "AD":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_drugiraz3", cellValue);
+                                        break;
+                                    case "AE":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_treciraz3", cellValue);
+                                        break;
+                                    case "AF":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_cetvrtiraz3", cellValue);
+                                        break;
+                                    case "AG":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_predmet4", cellValue);
+                                        break;
+                                    case "AH":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_prviraz4", cellValue);
+                                        break;
+                                    case "AI":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_drugiraz4", cellValue);
+                                        break;
+                                    case "AJ":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_treciraz4", cellValue);
+                                        break;
+                                    case "AK":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_cetvrtiraz4", cellValue);
+                                        break;
+                                    case "AL":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_predmet5", cellValue);
+                                        break;
+                                    case "AM":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_prviraz5", cellValue);
+                                        break;
+                                    case "AN":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_drugiraz5", cellValue);
+                                        break;
+                                    case "AO":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_treciraz5", cellValue);
+                                        break;
+                                    case "AP":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_cetvrtiraz5", cellValue);
+                                        break;
+                                    case "AQ":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_nazivrad1", cellValue);
+                                        break;
+                                    case "AR":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_brbod1", cellValue);
+                                        break;
+                                    
+                                    case "AS":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspeh1", cellValue);
+                                        break;
+                                    case "AT":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_nazivrad2", cellValue);
+                                        break;
+                                    case "AU":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_brbod2", cellValue);
+                                        break;
+                                   
+                                    case "AV":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspeh2", cellValue);
+                                        break;
+                                    case "AW":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_nazivrad3", cellValue);
+                                        break;
+                                    case "AX":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_brbod3", cellValue);
+                                        break;
+                                    
+                                    case "AY":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspeh3", cellValue);
+                                        break;
+                                    case "AZ":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_nazivrad4", cellValue);
+                                        break;
+                                    case "BA":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_brbod4", cellValue);
+                                        break;
+                                    
+                                    case "BB":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspeh4", cellValue);
+                                        break;
+                                    case "BC":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_ukupnobod1", cellValue);
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_ukupnobod2", cellValue);
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_ukupnobod3", cellValue);
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_ukupnobod4", cellValue);
+                                        break;
+                                    case "BD":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_ostvarenibodovi", cellValue);
+                                        break;
+                                    case "BE":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_ocena", cellValue);
+                                        break;
+
+                                    case "BF":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_vrstatakmicenja1", cellValue);
+                                        break;
+                                    case "BG":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_rang1", cellValue);
+                                        break;
+                                    case "BH":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_mesto1", cellValue);
+                                        break;
+                                    case "BI":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_datum1", cellValue);
+                                        break;
+
+                                    case "BJ":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_vrstatakmicenja2", cellValue);
+                                        break;
+                                    case "BK":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_rang2", cellValue);
+                                        break;
+                                    case "BL":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_mesto2", cellValue);
+                                        break;
+                                    case "BM":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_datum2", cellValue);
+                                        break;
+
+                                    case "BN":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_vrstatakmicenja3", cellValue);
+                                        break;
+                                    case "BO":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_rang3", cellValue);
+                                        break;
+                                    case "BP":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_mesto3", cellValue);
+                                        break;
+                                    case "BQ":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_datum3", cellValue);
+                                        break;
+
+                                    case "BR":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_vrstatakmicenja4", cellValue);
+                                        break;
+                                    case "BS":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_rang4", cellValue);
+                                        break;
+                                    case "BT":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_mesto4", cellValue);
+                                        break;
+                                    case "BU":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_datum4", cellValue);
+                                        break;
+                                    case "BV":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_program1", cellValue);
+                                        break;
+                                    case "BW":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_program3", cellValue);
+                                        break;
+                                    case "BX":
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_program5", cellValue);
+                                        break;
+                                    default:
+                                        break;
+
+                                }
+
+                            }
+
+                            if (newUcenik)
+                            {
+
+                                studentsCount += 1;
+                                stepStatus += (int)(50 / rowCount);
+                                progressForm.SetProgress(stepStatus, String.Format("Ucitavanje liste ocena iz excel dokumenta...{0}", studentsCount));
+                            }
+                        }
+                        context.SaveChanges();
+
                     }
                 }
             }
@@ -665,12 +1355,10 @@ namespace Documentum
             }
 
         }
-
-        private void MbPreview_Click(object sender, EventArgs e)
+        private void PreviewDocument()
         {
-            
             int ucenikId = DocumentumFactory.GetSelectedGridId(metroGridUcenici);
-            
+
             int documentTipId = DocumentumFactory.GetSelectedGridId(metroGridDokumenta, "DokumentTipId");
 
             if (ucenikId == -1 || documentTipId == -1)
@@ -680,7 +1368,7 @@ namespace Documentum
             {
                 ucenik = context.Uceniks.SingleOrDefault(u => u.Id == ucenikId);
             }
-            
+
             string docOutputPath = DocumentumFactory.GenerateDocument(ucenik, documentTipId, true);
             if (File.Exists(docOutputPath))
             {
@@ -688,7 +1376,10 @@ namespace Documentum
                 wordApp.Visible = true;
                 Microsoft.Office.Interop.Word.Document docPrint = wordApp.Documents.Open(docOutputPath);
             }
-
+        }
+        private void MbPreview_Click(object sender, EventArgs e)
+        {
+            PreviewDocument();
         }
 
         private void MbGenerate_Click(object sender, EventArgs e)
@@ -704,7 +1395,7 @@ namespace Documentum
                 progressForm.Step = (int) 100 / ucenikCount;
                 progressForm.Show();
                 
-                foreach (Ucenik ucenik in context.Uceniks.Where(u=> u.razredId == RazredId && u.UcenikOcenas.Where(uo => uo.ocena == -1).Count() == 0))
+                foreach (Ucenik ucenik in context.Uceniks.Where(u=> u.razredId == RazredId && u.UcenikOcenas.Where(uo => (uo.ocena == -1|| uo.ocena ==1)).Count() == 0))
                 {
                     string docOutputPath = DocumentumFactory.GenerateDocument(ucenik, documentTipId, false);
                     UcenikDokument ucenikDokument = context.UcenikDokuments.SingleOrDefault(d => d.ucenikId == ucenik.Id && d.dokumentTipId == documentTipId);
@@ -731,14 +1422,14 @@ namespace Documentum
             ReloadGridUceniciData();
         }
 
-        private void MbPrint_Click(object sender, EventArgs e)
+        private void PrintDocument(bool single = false)
         {
             int documentTipId = DocumentumFactory.GetSelectedGridId(metroGridDokumenta, "DokumentTipId");
-
+            int ucenikId = DocumentumFactory.GetSelectedGridId(metroGridUcenici);
             using (var context = new documentumEntities())
             {
 
-                int ucenikCount = context.UcenikDokuments.Where(ud => ud.dokumentTipId == documentTipId && ud.status == (int)StudentDocumentStatus.Created && ud.Ucenik.razredId == RazredId).Count();
+                int ucenikCount = context.UcenikDokuments.Where(ud => ud.dokumentTipId == documentTipId && ud.status == (int)StudentDocumentStatus.Created && (ud.Ucenik.razredId == RazredId && !single || ud.ucenikId == ucenikId)).Count();
 
                 if (ucenikCount == 0)
                 {
@@ -752,29 +1443,29 @@ namespace Documentum
 
                 Microsoft.Office.Interop.Word.Application wordApp = new Microsoft.Office.Interop.Word.Application();
 
-                foreach (UcenikDokument ucenikDokument in context.UcenikDokuments.Where(ud => ud.dokumentTipId == documentTipId && ud.status == (int)StudentDocumentStatus.Created && ud.Ucenik.razredId == RazredId))
+                foreach (UcenikDokument ucenikDokument in context.UcenikDokuments.Where(ud => ud.dokumentTipId == documentTipId && (ud.status == (int)StudentDocumentStatus.Created) && (ud.Ucenik.razredId == RazredId && !single || ud.ucenikId == ucenikId)))
                 {
                     //TODO:print
 
                     if (File.Exists(ucenikDokument.dokumentPath))
                     {
-                        
+
                         wordApp.Visible = false;
                         Microsoft.Office.Interop.Word.Document docPrint = wordApp.Documents.Open(ucenikDokument.dokumentPath);
 
                         object oMissing = System.Reflection.Missing.Value;
-                         
+
                         wordApp.ActiveDocument.PrintOut();
                         docPrint.Close(SaveChanges: false);
 
                         docPrint = null;
-                        
+
                     }
 
                     ucenikDokument.status = (int)StudentDocumentStatus.Printed;
                     progressForm.StepProgress();
                 }
-                
+
 
                 context.SaveChanges();
                 progressForm.Close();
@@ -787,6 +1478,10 @@ namespace Documentum
                 wordApp = null;
             }
             ReloadGridUceniciData();
+        }
+        private void MbPrint_Click(object sender, EventArgs e)
+        {
+            PrintDocument(false);
         }
 
         private void metroGridUcenici_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -849,7 +1544,22 @@ namespace Documentum
 
                 }
             }
-            
+            else
+            if (this.metroGridUcenici.Columns[e.ColumnIndex].Name == "nedovoljnih")
+            {
+                if (e.Value != null)
+                {
+                    // Check for the string "pink" in the cell.
+                    int value = int.Parse(e.Value.ToString());
+
+                    if (value > 0)
+                    {
+                        e.CellStyle.BackColor = System.Drawing.Color.Red;
+                    }
+
+                }
+            }
+
         }
 
         private void metroGridDokumenta_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -933,6 +1643,71 @@ namespace Documentum
         {
             ReloadGridUceniciData();
             ReloadGridDokumenta();
+        }
+
+        private void mbImportDiploma_Click(object sender, EventArgs e)
+        {
+            string fileName = "";
+
+            
+
+            int dokumentTipUverenjeId = 0;
+            int dokumentTipDiplomaId = 0;
+            Razred razred = null;
+            using (var context = new documentumEntities())
+            {
+                razred = context.Razreds.SingleOrDefault(r => r.Id == RazredId);
+                string oznaka = System.Text.RegularExpressions.Regex.Replace(razred.oznaka, @"[^\w\d]", string.Empty);
+                fileName = mtbImportFileName.Text.ToString();
+                string uverenje = "";
+                string diploma = "";
+                if (razred.SmerGodina.godina == 3)
+                {
+                    uverenje = "UverenjeObrazac4b-B";
+                    diploma = "Diploma3stepen";
+                } else
+                {
+                    uverenje = "UverenjeObrazac4a-B";
+                    diploma = "Diploma4stepen";
+                }
+                try
+                {
+                    dokumentTipUverenjeId = context.SmerGodinaDokuments.SingleOrDefault(s => s.smerGodinaId == razred.smerGodinaId && (s.DokumentTip.naziv.Equals(uverenje))).Id;
+                } catch
+                {
+                    dokumentTipUverenjeId = 0;
+                }
+                try
+                {
+                    dokumentTipDiplomaId = context.SmerGodinaDokuments.SingleOrDefault(s => s.smerGodinaId == razred.smerGodinaId && (s.DokumentTip.naziv.Equals(diploma))).Id;
+                }
+                catch
+                {
+                    dokumentTipDiplomaId = 0;
+                }
+                fileName = String.Format(DocumentumFactory.ResolveDirectoryPath("IMPORT_EXCEL_FOLDER") + DocumentumFactory.ReadConfigParam("IMPORT_DIPLOMA_FILE_NAME"), oznaka, razred.SmerGodina.godina);
+            }
+            
+            if (dokumentTipUverenjeId == 0 && dokumentTipDiplomaId == 0)
+                return;
+            if (razred.SmerGodina.godina == 3)
+            {
+                ImportFileDiplomaUverenje3(fileName);
+            } else
+            {
+                ImportFileDiplomaUverenje4(fileName);
+            }
+            
+        }
+
+        private void pregledToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PreviewDocument();
+        }
+
+        private void štampajToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PrintDocument(true);
         }
     }
 

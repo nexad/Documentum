@@ -65,7 +65,7 @@ namespace Documentum
                         DialogResult = DialogResult.None;
                     } else
                     {
-                        DocumentumFactory.login = nastavnik;
+                        DocumentumFactory.Login = nastavnik;
                     }
                 }
             }

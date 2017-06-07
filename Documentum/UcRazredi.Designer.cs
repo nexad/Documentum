@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -57,6 +58,10 @@
             this.mtbImportFileName = new MetroFramework.Controls.MetroTextBox();
             this.metroButton2 = new MetroFramework.Controls.MetroButton();
             this.metroButton1 = new MetroFramework.Controls.MetroButton();
+            this.mbImportDiploma = new MetroFramework.Controls.MetroButton();
+            this.metroContextMenuUcenici = new MetroFramework.Controls.MetroContextMenu(this.components);
+            this.štampajToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pregledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.metroPanel1.SuspendLayout();
             this.metroPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.metroGridRazredi)).BeginInit();
@@ -65,6 +70,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.metroGridUcenici)).BeginInit();
             this.metroPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.metroGridDokumenta)).BeginInit();
+            this.metroContextMenuUcenici.SuspendLayout();
             this.SuspendLayout();
             // 
             // metroPanel1
@@ -226,6 +232,7 @@
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.metroGridUcenici.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.metroGridUcenici.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.metroGridUcenici.ContextMenuStrip = this.metroContextMenuUcenici;
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
@@ -258,6 +265,7 @@
             // 
             // metroPanel4
             // 
+            this.metroPanel4.Controls.Add(this.mbImportDiploma);
             this.metroPanel4.Controls.Add(this.mbSync);
             this.metroPanel4.Controls.Add(this.mbPrint);
             this.metroPanel4.Controls.Add(this.mbGenerate);
@@ -446,6 +454,40 @@
             this.metroButton1.UseStyleColors = true;
             this.metroButton1.Click += new System.EventHandler(this.MetroButton1_Click);
             // 
+            // mbImportDiploma
+            // 
+            this.mbImportDiploma.Location = new System.Drawing.Point(3, 125);
+            this.mbImportDiploma.Name = "mbImportDiploma";
+            this.mbImportDiploma.Size = new System.Drawing.Size(90, 23);
+            this.mbImportDiploma.Style = MetroFramework.MetroColorStyle.Orange;
+            this.mbImportDiploma.TabIndex = 11;
+            this.mbImportDiploma.Text = "Import Diploma";
+            this.mbImportDiploma.UseSelectable = true;
+            this.mbImportDiploma.UseStyleColors = true;
+            this.mbImportDiploma.Click += new System.EventHandler(this.mbImportDiploma_Click);
+            // 
+            // metroContextMenuUcenici
+            // 
+            this.metroContextMenuUcenici.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.štampajToolStripMenuItem,
+            this.pregledToolStripMenuItem});
+            this.metroContextMenuUcenici.Name = "metroContextMenuUcenici";
+            this.metroContextMenuUcenici.Size = new System.Drawing.Size(153, 70);
+            // 
+            // štampajToolStripMenuItem
+            // 
+            this.štampajToolStripMenuItem.Name = "štampajToolStripMenuItem";
+            this.štampajToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.štampajToolStripMenuItem.Text = "Štampaj";
+            this.štampajToolStripMenuItem.Click += new System.EventHandler(this.štampajToolStripMenuItem_Click);
+            // 
+            // pregledToolStripMenuItem
+            // 
+            this.pregledToolStripMenuItem.Name = "pregledToolStripMenuItem";
+            this.pregledToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pregledToolStripMenuItem.Text = "Pregled";
+            this.pregledToolStripMenuItem.Click += new System.EventHandler(this.pregledToolStripMenuItem_Click);
+            // 
             // UcRazredi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -466,6 +508,7 @@
             this.metroPanel4.ResumeLayout(false);
             this.metroPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.metroGridDokumenta)).EndInit();
+            this.metroContextMenuUcenici.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -490,5 +533,9 @@
         private MetroFramework.Controls.MetroButton mbPreview;
         private MetroFramework.Controls.MetroGrid metroGridDokumenta;
         private MetroFramework.Controls.MetroButton mbSync;
+        private MetroFramework.Controls.MetroButton mbImportDiploma;
+        private MetroFramework.Controls.MetroContextMenu metroContextMenuUcenici;
+        private System.Windows.Forms.ToolStripMenuItem štampajToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pregledToolStripMenuItem;
     }
 }

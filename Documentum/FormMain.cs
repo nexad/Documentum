@@ -43,6 +43,7 @@ namespace Documentum
             };
             metroPanelMain.Controls.Add(uc);
             metroPanelMain.Controls["UcRazredi"].BringToFront();
+            Text = Text + " - " + DocumentumFactory.Login.ime + " " + DocumentumFactory.Login.prezime;
         }
 
         private void mbMain_Click(object sender, EventArgs e)
