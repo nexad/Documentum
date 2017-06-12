@@ -166,6 +166,10 @@ namespace Documentum
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            if (MessageBox.Show(String.Format("Ovom akcijom će biti učitan fajl {0}. Želite li da nastavite?", fileName), "Učitavanje fajla",MessageBoxButtons.YesNo,MessageBoxIcon.Warning) != DialogResult.Yes)
+            {
+                return;
+            }
             int stepStatus = 5;
             int studentsCount = 0;
             ProgressForm progressForm = new ProgressForm();
@@ -371,6 +375,11 @@ namespace Documentum
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            if (MessageBox.Show(String.Format("Ovom akcijom će biti učitan fajl {0}. Želite li da nastavite?", fileName), "Učitavanje fajla", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+            {
+                return;
+            }
             int stepStatus = 5;
             int studentsCount = 0;
             ProgressForm progressForm = new ProgressForm();
@@ -481,7 +490,7 @@ namespace Documentum
                                         if (rowNumber >= 3)
                                         {
                                             imeUcenika = cellValue;
-                                            ucenik = context.Uceniks.SingleOrDefault(u => u.razredId == RazredId && u.redniBroj == redniBroj && u.ime.ToUpper().Trim() == imeUcenika.ToUpper().Trim());
+                                            ucenik = context.Uceniks.SingleOrDefault(u => u.razredId == RazredId && u.ime.ToUpper().Trim() == imeUcenika.ToUpper().Trim() && u.prezime.ToUpper().Trim() == prezimeUcenika.ToUpper().Trim());
                                         }
                                         break;
                                     case "D":
@@ -536,9 +545,9 @@ namespace Documentum
                                                         if  (grupa > 0 && ocena>0)
                                                         {
                                                             UpdateUcenikGrupa(context, ucenik, ucenikOcena);
+                                                            ucenikOcena.ocenaOpis = DocumentumFactory.marks[ucenikOcena.ocena].ToString();
                                                         }
                                                         
-                                                        ucenikOcena.ocenaOpis = DocumentumFactory.marks[ucenikOcena.ocena].ToString();
                                                     }
                                                     else
                                                     {
@@ -624,7 +633,12 @@ namespace Documentum
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-           
+
+            if (MessageBox.Show(String.Format("Ovom akcijom će biti učitan fajl {0}. Želite li da nastavite?", fileName), "Učitavanje fajla", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+            {
+                return;
+            }
+
             int ucenikDokumentUverenjeId = 0;
             int ucenikDokumentDiplomaId = 0;
 
@@ -740,7 +754,7 @@ namespace Documentum
                                         if (rowNumber >= 3)
                                         {
                                             imeUcenika = cellValue;
-                                            ucenik = context.Uceniks.SingleOrDefault(u => u.razredId == RazredId && u.redniBroj == redniBroj && u.ime.ToUpper().Trim() == imeUcenika.ToUpper().Trim());
+                                            ucenik = context.Uceniks.SingleOrDefault(u => u.razredId == RazredId && u.ime.ToUpper().Trim() == imeUcenika.ToUpper().Trim() && u.prezime.ToUpper().Trim() == prezimeUcenika.ToUpper().Trim());
                                             try
                                             { 
                                                 ucenikDokumentUverenjeId = context.UcenikDokuments.SingleOrDefault(u=> u.ucenikId == ucenik.Id && u.DokumentTip.naziv.Equals("UverenjeObrazac4b-B")).Id;
@@ -849,6 +863,11 @@ namespace Documentum
             {
                 MessageBox.Show(String.Format("Ne postoji fajl {0} ", fileName), "Greska prilikom ucitavanja fajla",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (MessageBox.Show(String.Format("Ovom akcijom će biti učitan fajl {0}. Želite li da nastavite?", fileName), "Učitavanje fajla", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
+            {
                 return;
             }
 
@@ -967,7 +986,7 @@ namespace Documentum
                                         if (rowNumber >= 3)
                                         {
                                             imeUcenika = cellValue;
-                                            ucenik = context.Uceniks.SingleOrDefault(u => u.razredId == RazredId && u.redniBroj == redniBroj && u.ime.ToUpper().Trim() == imeUcenika.ToUpper().Trim());
+                                            ucenik = context.Uceniks.SingleOrDefault(u => u.razredId == RazredId && u.ime.ToUpper().Trim() == imeUcenika.ToUpper().Trim() && u.prezime.ToUpper().Trim() == prezimeUcenika.ToUpper().Trim());
                                             try
                                             {
                                                 ucenikDokumentUverenjeId = context.UcenikDokuments.SingleOrDefault(u => u.ucenikId == ucenik.Id && u.DokumentTip.naziv.Equals("UverenjeObrazac4a-B")).Id;
@@ -1031,8 +1050,8 @@ namespace Documentum
                                         AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspehtreciraz1", cellValue);
                                         break;
                                     case "Q":
-                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspehcetvraz", cellValue);
-                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspehcetvraz1", cellValue);
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspehcetvrtiraz", cellValue);
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspehcetvrtiraz1", cellValue);
                                         break;
                                     case "R":
                                         AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_predmet1", cellValue);
@@ -1118,6 +1137,9 @@ namespace Documentum
                                     
                                     case "AS":
                                         AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspeh1", cellValue);
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspeh2", cellValue);
+                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspeh3", cellValue);
+                                        //AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspeh4", cellValue);
                                         break;
                                     case "AT":
                                         AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_nazivrad2", cellValue);
@@ -1127,7 +1149,7 @@ namespace Documentum
                                         break;
                                    
                                     case "AV":
-                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspeh2", cellValue);
+                                        
                                         break;
                                     case "AW":
                                         AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_nazivrad3", cellValue);
@@ -1137,7 +1159,7 @@ namespace Documentum
                                         break;
                                     
                                     case "AY":
-                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspeh3", cellValue);
+                                        
                                         break;
                                     case "AZ":
                                         AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_nazivrad4", cellValue);
@@ -1147,13 +1169,13 @@ namespace Documentum
                                         break;
                                     
                                     case "BB":
-                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_uspeh4", cellValue);
+                                        
                                         break;
                                     case "BC":
                                         AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_ukupnobod1", cellValue);
                                         AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_ukupnobod2", cellValue);
                                         AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_ukupnobod3", cellValue);
-                                        AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_ukupnobod4", cellValue);
+                                        //AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_ukupnobod4", cellValue);
                                         break;
                                     case "BD":
                                         AddOrUpdateUcenikBookmark(ucenikDokumentUverenjeId, "_ostvarenibodovi", cellValue);
@@ -1442,8 +1464,10 @@ namespace Documentum
                 progressForm.Show();
 
                 Microsoft.Office.Interop.Word.Application wordApp = new Microsoft.Office.Interop.Word.Application();
+                wordApp.DisplayAlerts = Microsoft.Office.Interop.Word.WdAlertLevel.wdAlertsNone;
 
-                foreach (UcenikDokument ucenikDokument in context.UcenikDokuments.Where(ud => ud.dokumentTipId == documentTipId && (ud.status == (int)StudentDocumentStatus.Created) && (ud.Ucenik.razredId == RazredId && !single || ud.ucenikId == ucenikId)))
+
+                foreach (UcenikDokument ucenikDokument in context.UcenikDokuments.Where(ud => ud.dokumentTipId == documentTipId && (ud.status == (int)StudentDocumentStatus.Created) && ((ud.Ucenik.razredId == RazredId && !single) || (ud.ucenikId == ucenikId))))
                 {
                     //TODO:print
 
@@ -1451,7 +1475,7 @@ namespace Documentum
                     {
 
                         wordApp.Visible = false;
-                        Microsoft.Office.Interop.Word.Document docPrint = wordApp.Documents.Open(ucenikDokument.dokumentPath);
+                        Microsoft.Office.Interop.Word.Document docPrint = wordApp.Documents.Open(ucenikDokument.dokumentPath, ReadOnly: true);
 
                         object oMissing = System.Reflection.Missing.Value;
 
@@ -1464,6 +1488,10 @@ namespace Documentum
 
                     ucenikDokument.status = (int)StudentDocumentStatus.Printed;
                     progressForm.StepProgress();
+                    while (wordApp.BackgroundPrintingStatus > 0)
+                    {
+                        System.Threading.Thread.Sleep(250);
+                    }
                 }
 
 
@@ -1708,6 +1736,27 @@ namespace Documentum
         private void štampajToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PrintDocument(true);
+        }
+
+        private void vratiZaŠtampuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var context = new documentumEntities())
+            {
+                int documentTipId = DocumentumFactory.GetSelectedGridId(metroGridDokumenta, "DokumentTipId");
+                int ucenikId = DocumentumFactory.GetSelectedGridId(metroGridUcenici);
+
+                UcenikDokument ucenikDokument = context.UcenikDokuments.SingleOrDefault(u => u.ucenikId == ucenikId && u.dokumentTipId == documentTipId);
+
+                if (ucenikDokument != null)
+                {
+                    if (ucenikDokument.status == (int)StudentDocumentStatus.Printed)
+                    {
+                        ucenikDokument.status = (int)StudentDocumentStatus.Created;
+                        context.SaveChanges();
+                    }
+
+                }
+            }
         }
     }
 

@@ -62,6 +62,7 @@
             this.metroContextMenuUcenici = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.štampajToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pregledToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vratiZaŠtampuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.metroPanel1.SuspendLayout();
             this.metroPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.metroGridRazredi)).BeginInit();
@@ -470,23 +471,31 @@
             // 
             this.metroContextMenuUcenici.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.štampajToolStripMenuItem,
-            this.pregledToolStripMenuItem});
+            this.pregledToolStripMenuItem,
+            this.vratiZaŠtampuToolStripMenuItem});
             this.metroContextMenuUcenici.Name = "metroContextMenuUcenici";
-            this.metroContextMenuUcenici.Size = new System.Drawing.Size(153, 70);
+            this.metroContextMenuUcenici.Size = new System.Drawing.Size(156, 92);
             // 
             // štampajToolStripMenuItem
             // 
             this.štampajToolStripMenuItem.Name = "štampajToolStripMenuItem";
-            this.štampajToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.štampajToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.štampajToolStripMenuItem.Text = "Štampaj";
             this.štampajToolStripMenuItem.Click += new System.EventHandler(this.štampajToolStripMenuItem_Click);
             // 
             // pregledToolStripMenuItem
             // 
             this.pregledToolStripMenuItem.Name = "pregledToolStripMenuItem";
-            this.pregledToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.pregledToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.pregledToolStripMenuItem.Text = "Pregled";
             this.pregledToolStripMenuItem.Click += new System.EventHandler(this.pregledToolStripMenuItem_Click);
+            // 
+            // vratiZaŠtampuToolStripMenuItem
+            // 
+            this.vratiZaŠtampuToolStripMenuItem.Name = "vratiZaŠtampuToolStripMenuItem";
+            this.vratiZaŠtampuToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.vratiZaŠtampuToolStripMenuItem.Text = "Vrati za štampu";
+            this.vratiZaŠtampuToolStripMenuItem.Click += new System.EventHandler(this.vratiZaŠtampuToolStripMenuItem_Click);
             // 
             // UcRazredi
             // 
@@ -537,5 +546,6 @@
         private MetroFramework.Controls.MetroContextMenu metroContextMenuUcenici;
         private System.Windows.Forms.ToolStripMenuItem štampajToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pregledToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem vratiZaŠtampuToolStripMenuItem;
     }
 }

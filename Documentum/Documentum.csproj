@@ -23,7 +23,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>8</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -166,6 +166,7 @@
     <Compile Include="Razred.cs">
       <DependentUpon>DocModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SimpleAES.cs" />
     <Compile Include="Smer.cs">
       <DependentUpon>DocModel.tt</DependentUpon>
     </Compile>

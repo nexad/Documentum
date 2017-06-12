@@ -14,29 +14,7 @@ namespace Documentum
 {
     public partial class FormLogin : MetroFramework.Forms.MetroForm
     {
-        public string Encrypt(string plainText)
-        {
-            if (plainText == null) throw new ArgumentNullException("plainText");
-
-            //encrypt data
-            var data = Encoding.Unicode.GetBytes(plainText);
-            byte[] encrypted = ProtectedData.Protect(data, null, DataProtectionScope.CurrentUser);
-
-            //return as base64 string
-            return Convert.ToBase64String(encrypted);
-        }
-
-        public string Decrypt(string cipher)
-        {
-            if (cipher == null) throw new ArgumentNullException("cipher");
-
-            //parse base64 string
-            byte[] data = Convert.FromBase64String(cipher);
-
-            //decrypt data
-            byte[] decrypted = ProtectedData.Unprotect(data, null, DataProtectionScope.CurrentUser);
-            return Encoding.Unicode.GetString(decrypted);
-        }
+        
 
         public FormLogin()
         {
@@ -48,7 +26,8 @@ namespace Documentum
             string userName = mtbUserName.Text;
             string password = mtbPassword.Text;
 
-            
+            SimpleAES simpleAES = new SimpleAES();
+            //string crypted = simpleAES.EncryptToString(password);
 
             using (var context = new documentumEntities())
             {
@@ -59,13 +38,29 @@ namespace Documentum
                     DialogResult = DialogResult.None;
                 } else
                 {
-                    if (!password.Equals(Decrypt(nastavnik.password)))
+                    string passwordDecrypt = "";
+                    try
+                    {
+                        passwordDecrypt  = simpleAES.DecryptString(nastavnik.password);
+                    } catch
+                    {
+
+                    }
+
+                    if (!password.Equals(passwordDecrypt))
                     {
                         mlStatus.Visible = true;
                         DialogResult = DialogResult.None;
                     } else
                     {
-                        DocumentumFactory.Login = nastavnik;
+                        try
+                        {
+                            DocumentumFactory.Login = nastavnik;
+                        } catch
+                        {
+
+                        }
+                        
                     }
                 }
             }
